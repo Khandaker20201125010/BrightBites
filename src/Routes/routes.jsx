@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
             element: <Appointment></Appointment>
         },
         {
-            path: '/contactUs',
+            path: '/contact',
             element: <ContactUs></ContactUs>
         },
         {

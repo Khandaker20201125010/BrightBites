@@ -2,7 +2,8 @@ import  { useEffect, useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-
+import logo from "../assets/images/logo.png"
+import logo1 from "../assets/images/logo1.png"
 import { FiGlobe } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { SlMenu } from "react-icons/sl";
@@ -17,7 +18,7 @@ const Navbar = () => {
   const [textColor, setTextColor] = useState("text-white"); // Navbar text color
   const [buttonColor, setButtonColor] = useState("bg-transparent"); // Button color
   const [lanColor, setLanColor] = useState("bg-transparent"); // Button color
-//   const [logoVisible, setLogoVisible] = useState(logo);
+  const [logoVisible, setLogoVisible] = useState(logo);
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMenu = () => {
@@ -31,12 +32,12 @@ const Navbar = () => {
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
 
-      // Change logo based on scroll position
-    //   if (currentScrollY > 0) {
-    //     setLogoVisible(logo1); // Show logo1 when scrolled down
-    //   } else {
-    //     setLogoVisible(logo); // Show logo when at top
-    //   }
+     
+      if (currentScrollY > 0) {
+        setLogoVisible(logo1); // Show logo1 when scrolled down
+      } else {
+        setLogoVisible(logo); // Show logo when at top
+      }
 
       if (currentScrollY > lastScrollY) {
         setNavbarVisible(false);
@@ -68,107 +69,79 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li className="group relative w-full whitespace-nowrap group lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="group relative w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
         <NavLink
-          to="/solutions"
-          className={`font-bold ${textColor} hover:text-white-600 cursor-pointer`}
+          to="/"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
         >
-          {("Solutions")}
-        </NavLink>
-        <ul className="absolute left-0 hidden group-hover:block bg-gray-100 p-2 rounded-sm shadow-md w-64 mt-2">
-          <li>
-            <NavLink
-              to="/anycaas"
-              className="text-black hover:text-white-600 block p-2"
-            >
-              AnyCaaS
-            </NavLink>
-          </li>
-          <div className="border-t border-gray-300 my-1"></div>
-          <li>
-            <NavLink
-              to="/anybaas"
-              className="text-black hover:text-white-600 block p-2"
-            >
-              AnyBaaS
-            </NavLink>
-          </li>
-          <div className="border-t border-gray-300 my-1"></div>
-          <li>
-            <NavLink
-              to="/anypaas"
-              className="text-black hover:border-b-2 border-white block p-2"
-            >
-              AnyPaaS
-            </NavLink>
-          </li>
-        </ul>
-      </li>
-      <li className="w-full whitespace-nowrap group lg:py-3 lg:px-6 border-b border-transparent hover:border-white hover:border-opacity-100 transition-all duration-500 cursor-pointer">
-        <NavLink
-          className={`font-bold ${textColor} hover:text-white-600 cursor-pointer`}
-          to="/services"
-        >
-          {("services")}
+          Home
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap group lg:py-3 lg:px-6 border-b border-transparent hover:border-white hover:border-opacity-100 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
         <NavLink
-          className={`font-bold ${textColor} hover:text-white-600 cursor-pointer`}
-          to="/aboutUs"
+          to="/about"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
         >
-          {("aboutUs")}
+          About 
         </NavLink>
       </li>
-      <div className="relative inline-block ">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`flex  items-center gap-2 px-4 py-2 rounded-full border bg-transparent ${textColor} font-bold transition-all `}
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+        <NavLink
+          to="/appointment"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
         >
-          <FiGlobe size={18} />
-          EN
-          {isOpen ? (
-            <span className="ml-1">
-              <IoIosArrowUp />
-            </span>
-          ) : (
-            <span className="ml-1">
-              <IoIosArrowDown />
-            </span>
-          )}
-        </button>
-
-        {isOpen && (
-          <ul className="absolute left-0 mt-2 w-56 bg-gray-100 rounded-md shadow-md p-2">
-            <li
-              onClick={() => changeLanguage("en")}
-              className="p-2 hover:bg-gray-200 cursor-pointer border-b border-gray-300 "
-            >
-              EN (English)
-            </li>
-            <li
-              onClick={() => changeLanguage("th")}
-              className="p-2 hover:bg-gray-200 cursor-pointer border-b border-gray-300"
-            >
-              TH (Thai)
-            </li>
-            <li
-              onClick={() => changeLanguage("id")}
-              className="p-2 hover:bg-gray-200 cursor-pointer border-b border-gray-300"
-            >
-              ID (Bahasa Indonesia)
-            </li>
-            <li
-              onClick={() => changeLanguage("tw")}
-              className="p-2 hover:bg-gray-200 cursor-pointer"
-            >
-              TW (Traditional Chinese)
-            </li>
-          </ul>
-        )}
-      </div>
+          Appointment
+        </NavLink>
+      </li>
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+        <NavLink
+          to="/reviews"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
+        >
+          Reviews
+        </NavLink>
+      </li>
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
+        >
+          Contact Us
+        </NavLink>
+      </li>
     </>
   );
+  
 
   return (
     <div
@@ -179,7 +152,7 @@ const Navbar = () => {
       <div className="container mx-auto navbar-start">
         <Link to="/">
           <div className="w-40">
-            <img className="md:mx-40 w-40" src="{logoVisible}" alt="" />
+            <img className="md:mx-40 w-28" src={logoVisible} alt="" />
           </div>
         </Link>
       </div>
@@ -188,9 +161,9 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <a
-          className={`max-sm:hidden btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-white hover:text-blue-500 mx-20`}
+          className={`max-sm:hidden btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
         >
-          {("contactUs")} <MdOutlineKeyboardArrowRight />
+          {("Login")} <MdOutlineKeyboardArrowRight />
         </a>
       </div>
       <div>
@@ -228,7 +201,7 @@ const Navbar = () => {
 
                 <div className="flex justify-center w-full pb-10">
                   <button
-                    className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-white  border-white `}
+                    className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-white  border-blue-900 `}
                   >
                     {("contactUs")} <MdOutlineKeyboardArrowRight />
                   </button>
