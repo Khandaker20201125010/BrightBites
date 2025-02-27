@@ -3,7 +3,7 @@ import footerBg from "../assets/images/footer-bg.png";
 const Footer = () => {
   return (
     <footer
-      className="bg-base-300 text-base-content p-10"
+      className="bg-base-300 text-base-content p-10 xs:bg-black"
       style={{ backgroundImage: `url(${footerBg})`, backgroundSize: "cover" }}
     >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -24,12 +24,12 @@ const Footer = () => {
 
         <nav>
           <h6 className="footer-title">OUR ADDRESS</h6>
-          <a className="link link-hover block">New York - 101010 Hudson</a>
+          <a className="link link-hover block">Khulna,BD</a>
         </nav>
       </div>
 
       <div className="text-center mt-10">
-        <p>Copyright © 2022 All Rights Reserved</p>
+      <p>Copyright © {new Date().getFullYear()} - All right reserved </p>
       </div>
     </footer>
   );

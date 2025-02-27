@@ -1,9 +1,9 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import logo from "../assets/images/logo.png"
-import logo1 from "../assets/images/logo1.png"
+import logo from "../assets/images/logo.png";
+import logo1 from "../assets/images/logo1.png";
 import { FiGlobe } from "react-icons/fi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { SlMenu } from "react-icons/sl";
@@ -25,14 +25,12 @@ const Navbar = () => {
     setClick(false);
   };
 
- 
-
   // Track scroll direction and apply styles dynamically
+
   const handleScroll = () => {
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
 
-     
       if (currentScrollY > 0) {
         setLogoVisible(logo1); // Show logo1 when scrolled down
       } else {
@@ -51,8 +49,8 @@ const Navbar = () => {
         setLanColor(currentScrollY === 0 ? "text-white" : "text-blue-500");
         setButtonColor(
           currentScrollY === 0
-            ? "bg-transparent text-white hover:bg-white"
-            : "bg-orange-400 text-white"
+            ? "bg-transparent text-blue-900 hover:bg-white"
+            : "bg-cyan-400 text-black"
         );
       }
       setLastScrollY(currentScrollY);
@@ -83,7 +81,7 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
           to="/about"
           className={({ isActive }) =>
@@ -94,10 +92,10 @@ const Navbar = () => {
             }`
           }
         >
-          About 
+          About
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
           to="/appointment"
           className={({ isActive }) =>
@@ -111,7 +109,7 @@ const Navbar = () => {
           Appointment
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
           to="/reviews"
           className={({ isActive }) =>
@@ -125,7 +123,7 @@ const Navbar = () => {
           Reviews
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/contact"
           className={({ isActive }) =>
@@ -141,33 +139,36 @@ const Navbar = () => {
       </li>
     </>
   );
-  
 
   return (
     <div
-      className={`md:fixed navbar w-full ${navColor} z-50 transition-all max-sm:bg-blue-500 duration-300 ${
+      className={`fixed top-0 left-0 right-0 mx-auto navbar max-w-[90rem] ${navColor} z-50 transition-all max-sm:bg-blue-500 duration-300 ${
         navbarVisible ? "transform-none" : "-translate-y-full"
       }`}
     >
-      <div className="container mx-auto navbar-start">
+      <div className="  mx-auto navbar-start">
         <Link to="/">
           <div className="w-40">
-            <img className="md:mx-40 md:w-28 max-sm:h-12 max-sm:w-12 max-sm:bg-white max-sm:skeleton  max-sm:rounded-full" src={logoVisible} alt="" />
+            <img
+              className="lg:mx-10 xl:mx-20 md:w-28 md:-mx-20 max-sm:h-12 max-sm:w-12 max-sm:bg-white max-sm:skeleton  max-sm:rounded-full"
+              src={logoVisible}
+              alt=""
+            />
           </div>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="hidden lg:block xl:block navbar-end">
         <a
-          className={`max-sm:hidden btn btn-xs sm:btn-sm md:btn-md lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
+          className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
         >
-          {("Login")} <MdOutlineKeyboardArrowRight />
+          {"Login"} <MdOutlineKeyboardArrowRight />
         </a>
       </div>
-      <div>
-        <div className="navbar relative md:hidden">
+      <div className="">
+        <div className="navbar relative lg:hidden">
           <div className="navbar-end fixed top-0 right-0 z-[9999]">
             <div className="flex m-5 gap-5 lg:gap-10 justify-center items-center">
               <div
@@ -175,15 +176,15 @@ const Navbar = () => {
                 className="icon-wrapper cursor-pointer mx-10"
               >
                 {click ? (
-                  <AiOutlineClose size={30} className="text-white" />
+                  <AiOutlineClose size={30} className="text-white md:text-blue-800" />
                 ) : (
-                  <SlMenu size={30} className="text-white font-bold" />
+                  <SlMenu size={30} className="text-white font-bold md:text-blue-800" />
                 )}
               </div>
             </div>
 
             <div
-              className={`fixed top-20 left-0 max-sm:w-full h-full bg-base-200 shadow-lg transition-transform duration-500 ease-in-out z-[10000] border-r-2 border-blue-500 ${
+              className={`fixed top-20 left-0 w-full h-full bg-base-200 shadow-lg transition-transform duration-500 ease-in-out z-[10000] border-r-2 border-blue-500 ${
                 click ? "translate-x-0" : "-translate-x-full"
               }`}
             >
@@ -201,9 +202,9 @@ const Navbar = () => {
 
                 <div className="flex justify-center w-full pb-10">
                   <button
-                    className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-white  border-blue-900 `}
+                    className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
                   >
-                    {("Login")} <MdOutlineKeyboardArrowRight />
+                    {"Login"} <MdOutlineKeyboardArrowRight />
                   </button>
                 </div>
               </ul>
