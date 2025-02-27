@@ -69,7 +69,7 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li className="group relative w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="group relative w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -83,7 +83,7 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/about"
           className={({ isActive }) =>
@@ -97,7 +97,7 @@ const Navbar = () => {
           About 
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/appointment"
           className={({ isActive }) =>
@@ -111,7 +111,7 @@ const Navbar = () => {
           Appointment
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/reviews"
           className={({ isActive }) =>
@@ -125,7 +125,7 @@ const Navbar = () => {
           Reviews
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3 lg:px-6 transition-all duration-500 cursor-pointer">
+      <li className="w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/contact"
           className={({ isActive }) =>
@@ -152,7 +152,7 @@ const Navbar = () => {
       <div className="container mx-auto navbar-start">
         <Link to="/">
           <div className="w-40">
-            <img className="md:mx-40 w-28" src={logoVisible} alt="" />
+            <img className="md:mx-40 md:w-28 max-sm:h-12 max-sm:w-12 max-sm:bg-white max-sm:skeleton  max-sm:rounded-full" src={logoVisible} alt="" />
           </div>
         </Link>
       </div>
@@ -203,7 +203,7 @@ const Navbar = () => {
                   <button
                     className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-white  border-blue-900 `}
                   >
-                    {("contactUs")} <MdOutlineKeyboardArrowRight />
+                    {("Login")} <MdOutlineKeyboardArrowRight />
                   </button>
                 </div>
               </ul>
