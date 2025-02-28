@@ -31,28 +31,24 @@ const Navbar = () => {
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > 0) {
-        setLogoVisible(logo1); // Show logo1 when scrolled down
+      if (currentScrollY === 0) {
+        setNavbarVisible(true);
+        setNavColor("bg-transparent");
+        setTextColor("text-white");
+        setLanColor("text-white");
+        setButtonColor("bg-transparent text-blue-900 hover:bg-white");
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down: hide navbar
+        setNavbarVisible(false);
       } else {
-        setLogoVisible(logo); // Show logo when at top
+        // Scrolling up: show and make navbar fixed
+        setNavbarVisible(true);
+        setNavColor("bg-white");
+        setTextColor("text-blue-500");
+        setLanColor("text-blue-500");
+        setButtonColor("bg-cyan-400 text-black");
       }
 
-      if (currentScrollY > lastScrollY) {
-        setNavbarVisible(false);
-        setNavColor("bg-white");
-        setTextColor("text-white");
-        setButtonColor("bg-transparent");
-      } else {
-        setNavbarVisible(true);
-        setNavColor(currentScrollY === 0 ? "bg-transparent" : "bg-white");
-        setTextColor(currentScrollY === 0 ? "text-white" : "text-blue-500");
-        setLanColor(currentScrollY === 0 ? "text-white" : "text-blue-500");
-        setButtonColor(
-          currentScrollY === 0
-            ? "bg-transparent text-blue-900 hover:bg-white"
-            : "bg-cyan-400 text-black"
-        );
-      }
       setLastScrollY(currentScrollY);
     }
   };
@@ -142,7 +138,9 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 mx-auto navbar max-w-[90rem] ${navColor} z-50 transition-all max-sm:bg-blue-500 duration-300 ${
+      className={`${
+        lastScrollY === 0 ? "relative" : "fixed"
+      } top-0 left-0 right-0 mx-auto navbar max-w-[90rem] ${navColor} z-50 transition-all duration-300 ${
         navbarVisible ? "transform-none" : "-translate-y-full"
       }`}
     >
@@ -176,9 +174,15 @@ const Navbar = () => {
                 className="icon-wrapper cursor-pointer mx-10"
               >
                 {click ? (
-                  <AiOutlineClose size={30} className="text-white md:text-blue-800" />
+                  <AiOutlineClose
+                    size={30}
+                    className="text-white md:text-blue-800"
+                  />
                 ) : (
-                  <SlMenu size={30} className="text-white font-bold md:text-blue-800" />
+                  <SlMenu
+                    size={30}
+                    className="text-white font-bold md:text-blue-800"
+                  />
                 )}
               </div>
             </div>
