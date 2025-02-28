@@ -46,7 +46,7 @@ const Navbar = () => {
         setNavColor("bg-white");
         setTextColor("text-blue-500");
         setLanColor("text-blue-500");
-        setButtonColor("bg-cyan-400 text-black");
+        setButtonColor("bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:text-gray-200");
       }
 
       setLastScrollY(currentScrollY);
