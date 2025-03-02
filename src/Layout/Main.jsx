@@ -9,9 +9,9 @@ const Main = () => {
       <div className="flex flex-col min-h-screen flex-grow">
         <Outlet />
       </div>
-     <div className="mt-40">
-     <Footer />
-     </div>
+      <div className="mt-40">
+        <Footer />
+      </div>
     </div>
   );
 };
