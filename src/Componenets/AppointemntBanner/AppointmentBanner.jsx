@@ -8,7 +8,7 @@ const AppointmentBanner = () => {
       style={{ backgroundImage: `url(${bg})` }}
     >
       {/* Left - Doctor Image */}
-      <div className="w-full lg:w-1/2 flex justify-center h-[730px]">
+      <div className="w-full lg:w-1/2 flex justify-center h-[730px] max-sm:hidden">
         <img
           src={doctor}
           alt="Doctor"
@@ -17,7 +17,7 @@ const AppointmentBanner = () => {
       </div>
 
       {/* Right - Text Content */}
-      <div className="w-full lg:w-1/2 text-center lg:text-left">
+      <div className="w-full lg:w-1/2 md:text-center lg:text-left">
         <h1 className="text-xl text-cyan-500 font-semibold">Appointment</h1>
         <h2 className="text-3xl lg:text-4xl font-bold text-white mt-2">
           Make an Appointment Today
