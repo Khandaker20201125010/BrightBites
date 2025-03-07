@@ -2,11 +2,17 @@ import { Calendar } from "../components/ui/calendar";
 import banner from "../assets/images/banner.jpg";
 import landBg from "../assets/images/landing-bg.png";
 import { useState } from "react";
+import AvailableServices from "../Componenets/AvailableServices/AvailableServices";
+// import AvailableServices from "../Componenets/AvailableServices/AvailableServices";
+
+
+
 
 const Banner = () => {
     const [date, setDate] = useState(new Date());  
   return (
-    <div
+   <div>
+     <div
       className="bg-cover bg-center bg-no-repeat h-[600px] flex items-center px-4 sm:px-8 lg:px-16"
       style={{ backgroundImage: `url(${landBg})` }}
     >
@@ -30,8 +36,10 @@ const Banner = () => {
             alt="Banner"
           />
         </div>
-      </div>
+      </div>    
     </div>
+    <AvailableServices></AvailableServices>
+   </div>
   );
 };
 
