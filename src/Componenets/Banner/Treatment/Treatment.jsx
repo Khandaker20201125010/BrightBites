@@ -14,7 +14,7 @@ const Treatment = () => {
       </div>
 
       {/* Text Section */}
-      <div className="w-full lg:w-96 text-center lg:text-left">
+      <div className="w-full lg:w-96 text-center lg:text-left max-sm:text-left">
         <h1 className="text-3xl lg:text-4xl font-bold text-blue-950">
           Exceptional Dental Care, on Your Terms
         </h1>

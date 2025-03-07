@@ -1,57 +1,46 @@
 import fluoride from "../../assets/images/fluoride.png";
 import cavity from "../../assets/images/cavity.png";
 import whitening from "../../assets/images/whitening.png";
+
 const OurServices = () => {
   return (
-    <div className="mt-40">
+    <div className="mt-20 sm:mt-40">
       <div className="text-center">
-        <h3 className="font-bold text-cyan-500 text-xl">OUR SERVICES</h3>
-        <p className="text-4xl">Service we provide</p>
+        <h3 className="font-bold text-cyan-500 text-lg sm:text-xl md:text-2xl">OUR SERVICES</h3>
+        <p className="text-xl sm:text-2xl md:text-4xl">Service we provide</p>
       </div>
-      <div className="text-center container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
-        <div className="card bg-base-100 w-96 shadow-md">
+
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 px-4">
+        {/* Fluoride Treatment */}
+        <div className="card bg-base-100 w-full md:w-96 shadow-md">
           <figure>
-            <img
-              src={fluoride}
-              alt="fluoride"
-            />
+            <img className="w-28 h-28 sm:w-20 sm:h-20 mx-auto" src={fluoride} alt="fluoride" />
           </figure>
-          <div className="card-body">
+          <div className="card-body text-center ">
             <h2 className="card-title flex justify-center">Fluoride Treatment</h2>
-            <p>
-              Fluoride treatments are dental procedures that strengthen tooth
-              enamel and reduce the risk of cavities.
-            </p>
+            <p>Fluoride treatments strengthen tooth enamel and reduce the risk of cavities.</p>
           </div>
         </div>
-        <div className="card bg-base-100 w-96 shadow-md">
+
+        {/* Cavity Filling */}
+        <div className="card bg-base-100 w-full md:w-96 shadow-md">
           <figure>
-            <img
-              src={cavity}
-              alt="cavity"
-            />
+            <img className="w-28 h-28 sm:w-20 sm:h-20 mx-auto" src={cavity} alt="cavity" />
           </figure>
-          <div className="card-body">
+          <div className="card-body text-center ">
             <h2 className="card-title flex justify-center">Cavity Filling</h2>
-            <p>
-              Cavity filling is a dental procedure that replaces the decayed
-              tooth enamel with a material that is stronger than the enamel.
-            </p>
+            <p>Cavity filling replaces decayed enamel with a strong dental material.</p>
           </div>
         </div>
-        <div className="card bg-base-100 w-96 shadow-md">
+
+        {/* Teeth Whitening */}
+        <div className="card bg-base-100 w-full md:w-96 shadow-md">
           <figure>
-            <img
-              src={whitening}
-              alt="whitening"
-            />
+            <img className="w-28 h-28 sm:w-20 sm:h-20 mx-auto" src={whitening} alt="whitening" />
           </figure>
-          <div className="card-body">
+          <div className="card-body text-center ">
             <h2 className="card-title flex justify-center">Teeth Whitening</h2>
-            <p>
-              Teeth whitening is a dental procedure that improves the appearance
-              of teeth by whitening their enamel.
-            </p>
+            <p>Teeth whitening enhances enamel appearance for a brighter smile.</p>
           </div>
         </div>
       </div>

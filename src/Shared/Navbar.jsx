@@ -46,7 +46,9 @@ const Navbar = () => {
         setNavColor("bg-white");
         setTextColor("text-blue-500");
         setLanColor("text-blue-500");
-        setButtonColor("bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:text-gray-200");
+        setButtonColor(
+          "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:text-gray-200"
+        );
       }
 
       setLastScrollY(currentScrollY);
@@ -159,11 +161,14 @@ const Navbar = () => {
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
       </div>
       <div className="hidden lg:block xl:block navbar-end">
-        <a
-          className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
-        >
-          {"Login"} <MdOutlineKeyboardArrowRight />
-        </a>
+        <Link to="/login">
+        
+          <a
+            className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
+          >
+            {"Login"} <MdOutlineKeyboardArrowRight />
+          </a>
+        </Link>
       </div>
       <div className="">
         <div className="navbar relative lg:hidden">
@@ -205,11 +210,18 @@ const Navbar = () => {
                 {links}
 
                 <div className="flex justify-center w-full pb-10">
-                  <button
+                  {/* <button
                     className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
                   >
-                    {"Login"} <MdOutlineKeyboardArrowRight />
-                  </button>
+                    Logout <MdOutlineKeyboardArrowRight />
+                  </button> */}
+                  <Link to="/login">
+                    <button
+                      className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
+                    >
+                      Login <MdOutlineKeyboardArrowRight />
+                    </button>
+                  </Link>
                 </div>
               </ul>
             </div>
