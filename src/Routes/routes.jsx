@@ -30,10 +30,6 @@ export const router = createBrowserRouter([
             element: <ContactUs></ContactUs>
         },
         {
-            path: '/reviews',
-            element:<Reviews></Reviews>
-        },
-        {
             path: '/login',
             element: <Login></Login>
         },

@@ -79,20 +79,7 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
-            }`
-          }
-        >
-          About
-        </NavLink>
-      </li>
+
       <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
           to="/appointment"
@@ -107,20 +94,7 @@ const Navbar = () => {
           Appointment
         </NavLink>
       </li>
-      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
-        <NavLink
-          to="/reviews"
-          className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
-            }`
-          }
-        >
-          Reviews
-        </NavLink>
-      </li>
+
       <li className="w-full whitespace-nowrap lg:py-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/contact"
@@ -133,6 +107,20 @@ const Navbar = () => {
           }
         >
           Contact Us
+        </NavLink>
+      </li>
+      <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `font-bold px-4 py-2 rounded-md ${
+              isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            }`
+          }
+        >
+          About
         </NavLink>
       </li>
     </>
@@ -162,7 +150,6 @@ const Navbar = () => {
       </div>
       <div className="hidden lg:block xl:block navbar-end">
         <Link to="/login">
-        
           <a
             className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
           >
@@ -181,12 +168,12 @@ const Navbar = () => {
                 {click ? (
                   <AiOutlineClose
                     size={30}
-                    className="text-white md:text-blue-800"
+                    className="text-cyan-500 md:text-blue-800"
                   />
                 ) : (
                   <SlMenu
                     size={30}
-                    className="text-white font-bold md:text-blue-800"
+                    className="text-cyan-500 font-bold md:text-blue-800"
                   />
                 )}
               </div>
