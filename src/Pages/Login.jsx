@@ -1,10 +1,14 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
 import loginsignin from "../assets/images/loginsignin.png";
 import { useState } from "react";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { FaRegEye } from "react-icons/fa";
+import { GrGoogle } from "react-icons/gr";
 const Login = () => {
     const { signIn, googleSignIn } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
     // const axiosPublic = useAxiosPublic();
@@ -100,7 +104,7 @@ const Login = () => {
                     required
                   />
                   <div
-                    className="absolute inset-y-14 right-3 flex items-center cursor-pointer"
+                    className="absolute inset-y-10 right-3 flex items-center cursor-pointer"
                     onClick={togglePasswordVisibility}
                   >
                     {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
@@ -109,22 +113,23 @@ const Login = () => {
                 {/* Submit Button */}
                 <input
                   type="submit"
-                  className="btn bg-purple-900 w-full hover:bg-purple-600 text-white font-bold"
+                  className="btn bg-cyan-500 w-full hover:bg-cyan-600 text-white font-bold"
                   value="Login"
                 />
               </form>
+              <div className="divider">OR</div>
               {/* Google Sign-In */}
               <div className="flex px-5 justify-center mt-4">
                 <button
                   onClick={handeleGoogleSignIn}
-                  className="btn bg-purple-900 w-full  hover:bg-purple-600 text-2xl text-white font-bold"
+                  className="btn bg-cyan-500 w-full  hover:bg-cyan-600 text-2xl text-white font-bold"
                 >
                   <GrGoogle></GrGoogle>
                 </button>
               </div>
               <div className="mt-4 text-sm text-center p-2 mb-2">
                 Don't have an account?{" "}
-                <Link to="/signUp" className="text-purple-600 underline">
+                <Link to="/signUp" className="text-cyan-600 underline">
                   Sign Up
                 </Link>
               </div>
