@@ -7,6 +7,7 @@ import ContactUs from "../Pages/ContactUs";
 import Reviews from "../Pages/Reviews";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
+import PriveteRoute from "../PrivetRoutes/PrivetRoute";
 
 export const router = createBrowserRouter([
 {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
         },
         {
             path: '/appointment',
-            element: <Appointment></Appointment>
+            element:<PriveteRoute><Appointment></Appointment></PriveteRoute> 
         },
         {
             path: '/contact',

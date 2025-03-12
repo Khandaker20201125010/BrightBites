@@ -9,8 +9,10 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { SlMenu } from "react-icons/sl";
 import { AiOutlineClose } from "react-icons/ai";
 import { LiaTimesSolid } from "react-icons/lia";
+import useAuth from "../Hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
   const [navbarVisible, setNavbarVisible] = useState(true); // To control navbar visibility
@@ -20,6 +22,12 @@ const Navbar = () => {
   const [lanColor, setLanColor] = useState("bg-transparent"); // Button color
   const [logoVisible, setLogoVisible] = useState(logo);
   const [click, setClick] = useState(false);
+
+  const handelLogOut = () => {
+    logOut().then(() => {
+      toast.success("Logout toasted!");
+    });
+  };
   const handleClick = () => setClick(!click);
   const closeMenu = () => {
     setClick(false);
@@ -149,13 +157,18 @@ const Navbar = () => {
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
       </div>
       <div className="hidden lg:block xl:block navbar-end">
-        <Link to="/login">
+       {user? (<a onClick={handelLogOut}
+          className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
+        >
+          {"LogOut"} <MdOutlineKeyboardArrowRight />
+        </a>):
+      (  <Link to="/login">
           <a
             className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
           >
             {"Login"} <MdOutlineKeyboardArrowRight />
           </a>
-        </Link>
+        </Link>)}
       </div>
       <div className="">
         <div className="navbar relative lg:hidden">
@@ -197,18 +210,21 @@ const Navbar = () => {
                 {links}
 
                 <div className="flex justify-center w-full pb-10">
-                  {/* <button
-                    className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
-                  >
-                    Logout <MdOutlineKeyboardArrowRight />
-                  </button> */}
-                  <Link to="/login">
-                    <button
+                  {user ? (
+                    <button onClick={handelLogOut}
                       className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
                     >
-                      Login <MdOutlineKeyboardArrowRight />
+                      Logout <MdOutlineKeyboardArrowRight />
                     </button>
-                  </Link>
+                  ) : (
+                    <Link to="/login">
+                      <button
+                        className={`btn w-full flex justify-center btn-outline hover:bg-transparent text-black  border-blue-900 `}
+                      >
+                        Login <MdOutlineKeyboardArrowRight />
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </ul>
             </div>

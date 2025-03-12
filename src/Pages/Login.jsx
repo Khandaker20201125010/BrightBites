@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,  useLocation,  useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import Swal from "sweetalert2";
 import loginsignin from "../assets/images/loginsignin.png";
@@ -11,7 +11,6 @@ const Login = () => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
-    // const axiosPublic = useAxiosPublic();
     const [showPassword, setShowPassword] = useState(false);
   
     const from = location.state?.from?.pathname || "/";
