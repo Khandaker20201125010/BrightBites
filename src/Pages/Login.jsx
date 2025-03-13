@@ -14,13 +14,14 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
   
     const from = location.state?.from?.pathname || "/";
+    
   
     const handleLogin = (event) => {
       event.preventDefault();
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
-  
+
       signIn(email, password)
         .then(() => {
           Swal.fire({

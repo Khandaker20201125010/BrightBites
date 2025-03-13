@@ -157,17 +157,17 @@ const Navbar = () => {
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
       </div>
       <div className="hidden lg:block xl:block navbar-end">
-       {user? (<a onClick={handelLogOut}
+       {user? (<div onClick={handelLogOut}
           className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
         >
           {"LogOut"} <MdOutlineKeyboardArrowRight />
-        </a>):
+        </div>):
       (  <Link to="/login">
-          <a
+          <div
             className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
           >
             {"Login"} <MdOutlineKeyboardArrowRight />
-          </a>
+          </div>
         </Link>)}
       </div>
       <div className="">
