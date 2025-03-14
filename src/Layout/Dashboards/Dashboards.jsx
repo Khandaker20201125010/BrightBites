@@ -1,12 +1,22 @@
 import { Outlet } from "react-router-dom";
 import UserDashboard from "./UserDashboard";
+import AdminDashBoard from "./AdminDashBoard";
 
 const DashBoards = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-72 py-10 bg-white shadow-md ">
-        <UserDashboard />
+      <aside className="max-sm:hidden w-72 py-10 bg-white shadow-lg ">
+        {
+          isAdmin ?<>
+          <AdminDashBoard />
+          </>
+          :
+          <>
+           <UserDashboard />
+          </>
+        }
+       
       </aside>
 
       {/* Main Content */}

@@ -2,6 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { LuImageUp } from "react-icons/lu";
 
+const image_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
+
 const AddDoctor = () => {
   const {
     register,
@@ -17,7 +20,7 @@ const AddDoctor = () => {
       <div>
         <h1 className="text-2xl font-bold mb-10">Add A New Doctor</h1>
       </div>
-      <div className="max-w-md min-h-full  bg-white p-10 rounded-lg shadow-lg">
+      <div className="max-w-md min-h-full  bg-white p-10 rounded-lg shadow-xl">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Name Field */}
           <div>
@@ -57,11 +60,11 @@ const AddDoctor = () => {
               className="w-full p-2 border rounded-lg"
             >
               <option value="Teeth Orthodontics">Teeth Orthodontics</option>
-              <option value="Cardiology">Cosmetic Dentistry</option>
-              <option value="Dermatology">Oral Surgery</option>
-              <option value="Dermatology">Teeth Cleaning</option>
-              <option value="Dermatology">Cavity Protection</option>
-              <option value="Dermatology">Pediatric Dental</option>
+              <option value="CosmeticDentistry">Cosmetic Dentistry</option>
+              <option value="OralSurgery">Oral Surgery</option>
+              <option value="TeethCleaning">Teeth Cleaning</option>
+              <option value="CavityProtection">Cavity Protection</option>
+              <option value="PediatricDental">Pediatric Dental</option>
             </select>
             {errors.specialty && (
               <p className="text-red-500 text-sm">{errors.specialty.message}</p>
