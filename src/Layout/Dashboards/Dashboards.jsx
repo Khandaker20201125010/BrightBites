@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
 import UserDashboard from "./UserDashboard";
 import AdminDashBoard from "./AdminDashBoard";
+import useAdmin from "../../Hooks/useAdmin";
+
 
 const DashBoards = () => {
-  const isAdmin = true
+  const [isAdmin] = useAdmin()
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}

@@ -21,6 +21,7 @@ const Login = () => {
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
+      const role = form.role.value;
 
       signIn(email, password)
         .then(() => {
@@ -50,6 +51,7 @@ const Login = () => {
           email: result.user?.email,
           name: result.user?.displayName,
           photo: result.user?.photoURL,
+          role: 'patient'
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           Swal.fire({

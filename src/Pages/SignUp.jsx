@@ -37,6 +37,7 @@ const SignUp = () => {
               name: data.name,
               email: data.email,
               photo: res.data.data.display_url,
+               role: 'patient'
             });
             reset();
             Swal.fire({
@@ -65,6 +66,7 @@ const SignUp = () => {
             email: result.user?.email,
             name: result.user?.displayName,
             photo: result.user?.photoURL,
+            role: 'patient'
           };
           axiosPublic.post("/users", userInfo).then(() => {
             Swal.fire({
