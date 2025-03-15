@@ -3,6 +3,7 @@ import UserDashboard from "./UserDashboard";
 import AdminDashBoard from "./AdminDashBoard";
 
 const DashBoards = () => {
+  const isAdmin = true
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}

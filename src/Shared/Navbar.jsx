@@ -10,6 +10,7 @@ import { SlMenu } from "react-icons/sl";
 import { AiOutlineClose } from "react-icons/ai";
 import { LiaTimesSolid } from "react-icons/lia";
 import useAuth from "../Hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -25,7 +26,7 @@ const Navbar = () => {
 
   const handelLogOut = () => {
     logOut().then(() => {
-      toast.success("Logout toasted!");
+      toast.success("Logout Successful!");
     });
   };
   const handleClick = () => setClick(!click);
@@ -142,6 +143,8 @@ const Navbar = () => {
         navbarVisible ? "transform-none" : "-translate-y-full"
       }`}
     >
+      <Toaster
+        position="top-right"></Toaster>
       <div className="  mx-auto navbar-start">
         <Link to="/">
           <div className="w-40">
