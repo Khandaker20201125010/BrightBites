@@ -64,6 +64,7 @@ const AuthProvider = ({ children }) => {
       unsubscribe();
     };
   }, [axiosPublic]);
+
   const authInfo = {
     user,
     loading,

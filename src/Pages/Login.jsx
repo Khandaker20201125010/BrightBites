@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import loginsignin from "../assets/images/loginsignin.png";
 import { useState } from "react";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GrGoogle } from "react-icons/gr";
 const Login = () => {
     const { signIn, googleSignIn } = useAuth();
@@ -21,7 +21,6 @@ const Login = () => {
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
-      const role = form.role.value;
 
       signIn(email, password)
         .then(() => {

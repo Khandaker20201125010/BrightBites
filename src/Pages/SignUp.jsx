@@ -8,7 +8,8 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { BsGoogle } from "react-icons/bs";
-const image_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
+
+const image_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();

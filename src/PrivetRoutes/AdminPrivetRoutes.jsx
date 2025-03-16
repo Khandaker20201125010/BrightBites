@@ -1,15 +1,13 @@
-import { Navigate, useLocation } from "react-router-dom";
+import React from 'react';
+import useAuth from '../Hooks/useAuth';
+import useAdmin from '../Hooks/useAdmin';
 
-import Swal from "sweetalert2";
-import useAuth from "../Hooks/useAuth";
-
-const PriveteRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-  const location = useLocation();
-
+const AdminPrivetRoutes = () => {
+    const [user , loading] = useAuth();
+    const [isAdmin, isAdminLoading] = useAdmin();
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-screen">
         {/* Loader */}
         <div className="circ">
           <div className="heartbeatloader">
@@ -36,7 +34,7 @@ const PriveteRoute = ({ children }) => {
         {/* Text below loader */}
         <div className="text-center mt-16">
           <h1 className="text-red-500 text-2xl font-semibold">
-            Be patient <span className="dot-animation">.</span>
+           You are not Admin <span className="dot-animation">.</span>
           </h1>
         </div>
       </div>
@@ -50,8 +48,8 @@ const PriveteRoute = ({ children }) => {
   // Show alert before redirecting to login page
   Swal.fire({
     icon: "warning",
-    title: "Please Login",
-    text: "You need to log in to view this page.",
+    title: "You not allow to view this page",
+    text: "Only admin can view this page",
     showConfirmButton: true,
     timer: 3000,
   });
@@ -59,4 +57,4 @@ const PriveteRoute = ({ children }) => {
   return <Navigate state={{ from: location }} to="/login" replace />;
 };
 
-export default PriveteRoute;
+export default AdminPrivetRoutes;

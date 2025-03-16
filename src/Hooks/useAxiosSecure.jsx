@@ -11,8 +11,8 @@ const useAxiosSecure = () => {
     const navigate = useNavigate();
     axiosSecure.interceptors.request.use(function(config) {
        const token = localStorage.getItem('access-token')
-       config.headers.Authorization = `Bearer ${token}`
-        return config
+       config.headers.authorization = `Bearer ${token}`;
+        return config;
     },function(error) {
         return Promise.reject(error)
     })
@@ -25,6 +25,7 @@ const useAxiosSecure = () => {
            await logOut()
             navigate('/login')
         }
+        return Promise.reject(error)
     })
     return axiosSecure
     
