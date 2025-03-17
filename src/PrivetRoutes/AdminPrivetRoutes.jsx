@@ -2,10 +2,10 @@ import React from 'react';
 import useAuth from '../Hooks/useAuth';
 import useAdmin from '../Hooks/useAdmin';
 
-const AdminPrivetRoutes = () => {
+const AdminPrivetRoutes = ( {children}) => {
     const [user , loading] = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin();
-  if (loading) {
+  if (loading || isAdminLoading) {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
         {/* Loader */}
@@ -41,7 +41,7 @@ const AdminPrivetRoutes = () => {
     );
   }
 
-  if (user) {
+  if (user && isAdmin) {
     return children;
   }
 
@@ -54,7 +54,7 @@ const AdminPrivetRoutes = () => {
     timer: 3000,
   });
 
-  return <Navigate state={{ from: location }} to="/login" replace />;
+  return <Navigate state={{ from: location }} to="/" replace />;
 };
 
 export default AdminPrivetRoutes;
