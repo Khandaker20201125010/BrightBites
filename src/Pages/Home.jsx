@@ -1,4 +1,4 @@
-import AppointmentBanner from "../Componenets/AppointemntBanner/AppointmentBanner";
+import AppointmentBook from "../Componenets/AppointemntBanner/AppointmentBook";
 import Banner from "../Componenets/Banner/Banner";
 import BannerCard from "../Componenets/Banner/BannerCard";
 import OurServices from "../Componenets/Banner/OurServices";
@@ -14,7 +14,7 @@ const Home = () => {
         <BannerCard/>
         <OurServices></OurServices>
         <Treatment></Treatment>
-        <AppointmentBanner></AppointmentBanner>
+       <AppointmentBook></AppointmentBook>
         <Testimonial></Testimonial>
         <ContactUs></ContactUs>
        </div>

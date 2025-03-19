@@ -15,11 +15,13 @@ import MyHistory from "../Pages/DashBoardsPages/UserPages/MyHistory";
 import AllUsers from "../Pages/DashBoardsPages/AdminPages/AllUsers";
 import ManageDoctor from "../Pages/DashBoardsPages/AdminPages/ManageDoctor";
 import AddDoctor from "../Pages/DashBoardsPages/AdminPages/AddDoctor";
+import DisplayError from "../Shared/DisplayError/DisplayError";
 
 export const router = createBrowserRouter([
 {
     path: '/',
     element: <Main></Main>,
+    errorElement: <DisplayError></DisplayError>,
     children: [
         {
             path: '/',
@@ -50,6 +52,7 @@ export const router = createBrowserRouter([
 {
     path:'dashboard',
     element:<DashBoards></DashBoards>,
+    errorElement: <DisplayError></DisplayError>,
     children: [
         {
             path: 'MyAppointment',

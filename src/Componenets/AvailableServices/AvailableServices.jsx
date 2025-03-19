@@ -1,7 +1,8 @@
 import moment from "moment";
 
 
-const AvailableServices = () => {
+const   AvailableServices = ({ selectDate }) => {
+    
     return (
         <div className="mt-40">
             <div className="text-center">

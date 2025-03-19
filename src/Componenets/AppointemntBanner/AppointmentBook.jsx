@@ -1,7 +1,7 @@
 import bg from "../../assets/images/bgblue.png";
 import doctor from "../../assets/images/doctor.png";
 
-const AppointmentBanner = () => {
+const AppointmentBook = () => {
   return (
     <div
       className="mt-40 bg-cover bg-center bg-no-repeat h-[530px] flex flex-col lg:flex-row items-center gap-10 px-6 sm:px-12 lg:px-20 py-10"
@@ -34,4 +34,4 @@ const AppointmentBanner = () => {
   );
 };
 
-export default AppointmentBanner;
+export default AppointmentBook;
