@@ -8,6 +8,7 @@ const AdminDashBoard = () => {
             { path: "/dashboard/allUsers", label: "All Users" },
             { path: "/dashboard/addDoctor", label: "Add a Doctor" },
             { path: "/dashboard/manageDoctors", label: "Manage Doctors" },
+            { path: "/dashboard/addAppointment", label: "Add Appointment" },
             { path: "/", label: "Home" },
           ].map(({ path, label }) => (
             <li key={path}>

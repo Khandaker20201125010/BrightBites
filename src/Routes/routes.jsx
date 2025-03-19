@@ -16,6 +16,7 @@ import AllUsers from "../Pages/DashBoardsPages/AdminPages/AllUsers";
 import ManageDoctor from "../Pages/DashBoardsPages/AdminPages/ManageDoctor";
 import AddDoctor from "../Pages/DashBoardsPages/AdminPages/AddDoctor";
 import DisplayError from "../Shared/DisplayError/DisplayError";
+import AddAppointment from "../Pages/DashBoardsPages/AdminPages/AddAppointment";
 
 export const router = createBrowserRouter([
 {
@@ -73,9 +74,14 @@ export const router = createBrowserRouter([
         }, {
             path: 'addDoctor',
             element:<AddDoctor></AddDoctor>
-        }, {
+        },
+         {
             path: 'manageDoctors',
             element:<ManageDoctor></ManageDoctor>
+        },
+         {
+            path: 'addAppointment',
+            element:<AddAppointment></AddAppointment>
         },
     ]
 }
