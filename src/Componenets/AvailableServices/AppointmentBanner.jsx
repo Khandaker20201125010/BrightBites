@@ -1,10 +1,8 @@
-
-
 import { Calendar } from "../../components/ui/calendar";
 import banner from "../../assets/images/banner.jpg";
 import landBg from "../../assets/images/landing-bg.png";
 import { useState } from "react";
-const AppointmentBanner = ({ selectDate, setSelectDate}) => {
+const AppointmentBanner = ({ selectDate, setSelectDate }) => {
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-[600px] flex items-center px-4 sm:px-8 lg:px-16"
@@ -15,12 +13,12 @@ const AppointmentBanner = ({ selectDate, setSelectDate}) => {
         <Calendar
           mode="single"
           selected={selectDate}
-          onSelect={setSelectDate}
+          onSelect={setSelectDate} // ✅ This updates the parent state
           className="rounded-lg shadow-lg"
           classNames={{
-            day_selected: "bg-cyan-500 text-white", // Customize the selected day color
+            day_selected: "bg-cyan-500 text-white",
           }}
-        ></Calendar>
+        />
 
         {/* Right Image */}
         <div className="w-full lg:w-1/2 flex justify-center">

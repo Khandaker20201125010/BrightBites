@@ -13,8 +13,7 @@ const Banner = () => {
    <div>
     <AppointmentBanner
     selectDate={selectDate} setSelectDate={setSelectDate}></AppointmentBanner>
-    <AvailableServices
-     selectedDate={selectDate}></AvailableServices>
+   <AvailableServices selectDate={selectDate}></AvailableServices>
    </div>
   );
 };

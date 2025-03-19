@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
     children: [
         {
             path: '/',
-            element:<PriveteRoute> <Home></Home></PriveteRoute>
+            element: <Home></Home>
         },
         {
             path: '/about',
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         },
         {
             path: '/appointment',
-            element:<PriveteRoute><Appointment></Appointment></PriveteRoute> 
+            element:<Appointment></Appointment>
         },
         {
             path: '/contact',
