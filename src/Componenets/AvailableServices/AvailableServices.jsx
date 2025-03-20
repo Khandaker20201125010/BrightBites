@@ -77,11 +77,11 @@ const AvailableServices = ({ selectDate }) => {
       </div>
       {treatment && (
         <BookingModal
-          selectedDate={selectDate}
+          selectDate={selectDate}
           treatment={treatment}
           setTreatment={setTreatment}
           refetch={refetch}
-        ></BookingModal>
+        />
       )}
     </div>
   );

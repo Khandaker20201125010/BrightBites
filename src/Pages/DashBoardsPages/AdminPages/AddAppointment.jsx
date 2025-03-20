@@ -25,7 +25,12 @@ const availableSlots = [
 
 const AddAppointment = () => {
   const axiosSecure = useAxiosSecure();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [selectedSlots, setSelectedSlots] = useState([]);
 
   // Handle checkbox selection
@@ -50,10 +55,14 @@ const AddAppointment = () => {
     try {
       const appointmentInfo = {
         name: data.name,
+        price: data.price,
         slots: selectedSlots, // Only selected slots will be sent
       };
 
-      const appointmentRes = await axiosSecure.post("/appointments", appointmentInfo);
+      const appointmentRes = await axiosSecure.post(
+        "/appointments",
+        appointmentInfo
+      );
 
       if (appointmentRes.data.insertedId) {
         reset(); // Reset form fields
@@ -98,18 +107,33 @@ const AddAppointment = () => {
               <option value="Cavity Protection">Cavity Protection</option>
               <option value="Pediatric Dental">Pediatric Dental</option>
             </select>
-            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-1">Price</label>
+            <input
+              type="number"
+              {...register("price", { required: "Price is required" })}
+              className="w-full p-2 border rounded-lg"
+              placeholder="Enter Price"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
           </div>
 
           {/* Available Slots Selection */}
           <div>
-            <label className="block text-gray-700 mb-1">Select Available Slots</label>
+            <label className="block text-gray-700 mb-1">
+              Select Available Slots
+            </label>
             <div className="grid grid-cols-2 gap-2">
               {availableSlots.map((slot) => (
                 <label key={slot} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    defaultChecked
                     value={slot}
                     onChange={handleSlotChange}
                     className="w-5 h-5 checkbox checkbox-primary"
@@ -119,7 +143,9 @@ const AddAppointment = () => {
               ))}
             </div>
             {selectedSlots.length === 0 && (
-              <p className="text-red-500 text-sm mt-1">Please select at least one slot</p>
+              <p className="text-red-500 text-sm mt-1">
+                Please select at least one slot
+              </p>
             )}
           </div>
 
