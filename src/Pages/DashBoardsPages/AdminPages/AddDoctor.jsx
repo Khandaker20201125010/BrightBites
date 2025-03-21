@@ -25,9 +25,9 @@ const AddDoctor = () => {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setPreviewImage(URL.createObjectURL(file)); // Set the preview image
-      setValue("image", file); // Manually set the file in the form state
-      trigger("image"); // Trigger validation for the image field
+      setPreviewImage(URL.createObjectURL(file)); 
+      setValue("image", file); 
+      trigger("image"); 
     }
   };
 
@@ -40,7 +40,6 @@ const AddDoctor = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Form Data:", data);
 
       // Check if an image is selected
       if (!data.image) {

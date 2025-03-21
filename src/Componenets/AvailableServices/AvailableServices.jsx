@@ -2,7 +2,8 @@ import moment from "moment";
 import { useState } from "react";
 import AppointmentOption from "./AppointmentOption";
 import { useQuery } from "@tanstack/react-query";
-import BookingModal from "./BookingModal/BookingModal";
+import BookingModal from "../Modal/BookingModal/BookingModal";
+
 
 const AvailableServices = ({ selectDate }) => {
   const [treatment, setTreatment] = useState(null);
