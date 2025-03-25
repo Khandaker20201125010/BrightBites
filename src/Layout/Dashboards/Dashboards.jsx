@@ -11,15 +11,15 @@ const DashBoards = () => {
       {/* Sidebar */}
       <aside className="max-sm:hidden w-72 py-10 bg-white shadow-lg ">
         {
-          isAdmin ?<>
-          <AdminDashBoard />
+          isAdmin ? <>
+            <AdminDashBoard />
           </>
-          :
-          <>
-           <UserDashboard />
-          </>
+            :
+            <>
+              <UserDashboard />
+            </>
         }
-       
+
       </aside>
 
       {/* Main Content */}

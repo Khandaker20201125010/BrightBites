@@ -67,7 +67,7 @@ const AvailableServices = ({ selectDate }) => {
         </h1>
         <h2 className="text-gray-400 mt-2">Please Select a Service </h2>
       </div>
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-6">
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-6 mb-20">
         {appointments.map((option) => (
           <AppointmentOption
             key={option._id}

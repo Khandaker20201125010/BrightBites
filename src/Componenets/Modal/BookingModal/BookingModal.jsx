@@ -38,9 +38,7 @@ const BookingModal = ({ treatment, setTreatment, selectDate, refetch }) => {
 
       if (data.acknowledged) {
         setTreatment(null);
-        refetch(); // Refresh appointment list to update slots
-        
-        // SweetAlert2 success message
+        refetch(); 
         Swal.fire({
           title: "Success!",
           text: "Your booking has been confirmed.",
