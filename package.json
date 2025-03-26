@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
+    "@stripe/react-stripe-js": "^3.5.1",
+    "@stripe/stripe-js": "^6.1.0",
     "@tailwindcss/vite": "^4.0.1",
     "@tanstack/react-query": "^5.68.0",
     "axios": "^1.8.2",
@@ -33,6 +35,7 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.1.4",
     "sort-by": "^1.2.0",
+    "stripe": "^17.7.0",
     "sweetalert2": "^11.17.2",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.1",

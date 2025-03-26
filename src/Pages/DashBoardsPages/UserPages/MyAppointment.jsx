@@ -18,7 +18,7 @@ const MyAppointment = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Treatment</th>
                             <th>Date</th>
@@ -28,32 +28,30 @@ const MyAppointment = () => {
                     </thead>
                     <tbody>
                         {
-                            bookings.length > 0 ? ( // ✅ Handle empty bookings array
-                                bookings.map((booking, i) => (
-                                    <tr key={booking._id}>
-                                        <th>{i + 1}</th>
-                                        <td>{booking.patient}</td>
-                                        <td>{booking.treatment}</td>
-                                        <td>{booking.appointmentDate}</td>
-                                        <td>{booking.slot}</td>
-                                        <td>
-                                            {
-                                                booking.price && !booking.paid ? (
-                                                    <Link to={`/dashboard/payment/${booking._id}`}>
-                                                        <button className='btn btn-primary btn-sm'>Pay</button>
-                                                    </Link>
-                                                ) : (
-                                                    <span className='text-green-500'>Paid</span>
-                                                )
-                                            }
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="6" className="text-center text-lg">No appointments found.</td> 
-                                </tr>
-                            )
+                            bookings &&
+                            bookings?.map((booking, i) => <tr key={booking._id}>
+                                <th>{i + 1}</th>
+                                <td>{booking.patient}</td>
+                                <td>{booking.treatment}</td>
+                                <td>{booking.appointmentDate}</td>
+                                <td>{booking.slot}</td>
+                                <td>
+                                    {
+                                        booking.price && !booking.paid && <Link
+                                            to={`/dashboard/payment/${booking._id}`}
+                                        >
+                                            <button
+                                                className='btn btn-primary btn-sm'
+                                            >
+                                                Pay
+                                            </button>
+                                        </Link>
+                                    }
+                                    {
+                                        booking.price && booking.paid && <span className='text-green-500'>Paid</span>
+                                    }
+                                </td>
+                            </tr>)
                         }
                     </tbody>
                 </table>

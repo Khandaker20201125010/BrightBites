@@ -17,6 +17,7 @@ import ManageDoctor from "../Pages/DashBoardsPages/AdminPages/ManageDoctor";
 import AddDoctor from "../Pages/DashBoardsPages/AdminPages/AddDoctor";
 import DisplayError from "../Shared/DisplayError/DisplayError";
 import AddAppointment from "../Pages/DashBoardsPages/AdminPages/AddAppointment";
+import Payment from "../Pages/DashBoardsPages/Payment/Payment";
 
 export const router = createBrowserRouter([
 {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
         {
             path: 'MyHistory',
             element:<MyHistory></MyHistory>
+        },
+        {
+            path: '/dashboard/payment/:id',
+            element:<Payment></Payment>
         },
         //Admin routes
         {
