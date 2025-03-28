@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import useAppointment from '../../../Hooks/useAppointment';
+import useAuth from '../../../Hooks/useAuth';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
 const CheckoutForm = ({ booked }) => {
+    const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
@@ -11,6 +14,7 @@ const CheckoutForm = ({ booked }) => {
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState("");
     const [appointments] = useAppointment();
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         if (booked?.price) {
@@ -23,22 +27,31 @@ const CheckoutForm = ({ booked }) => {
                 .then(data => setClientSecret(data.clientSecret));
         }
     }, [booked]);
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!stripe || !elements) return;
-
+        
+        if (!stripe || !elements || !clientSecret) {
+            console.error("Stripe.js is not ready or clientSecret is missing.");
+            return;
+        }
+    
         setProcessing(true);
         setCardError('');
         setSuccess('');
-
+    
         const card = elements.getElement(CardNumberElement);
         if (!card) return;
-
+    
         const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card }
+            payment_method: { 
+                card: card, 
+                billing_details: { 
+                    name: user.displayName, 
+                    email: user.email 
+                } 
+            },
         });
-
+    
         if (error) {
             setCardError(error.message);
             setProcessing(false);
@@ -46,8 +59,28 @@ const CheckoutForm = ({ booked }) => {
             setSuccess('Payment successful!');
             setTransactionId(paymentIntent.id);
             setProcessing(false);
+    
+            // Send payment details to backend
+            const payment = {
+                email: user.email,
+                price: booked.price,
+                date: new Date(),
+                bookingIds: [booked.bookingId] ,  
+                status: "pending", 
+            };
+    
+            axiosSecure.post('/payments', payment)
+            .then(res => {
+                console.log("Payment saved:", res.data);
+            })
+            .catch(error => {
+                console.error("Error saving payment:", error);
+            });
         }
     };
+    
+    
+    
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">

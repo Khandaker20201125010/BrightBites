@@ -3,7 +3,7 @@ import useAuth from "../../../Hooks/useAuth";
 import moment from "moment";
 import Swal from "sweetalert2";
 
-const BookingModal = ({ treatment, setTreatment, selectDate, refetch }) => {
+const BookingModal = ({ treatment, setTreatment, selectDate, refetch, _id }) => {
   const { name: treatmentName, slots, price } = treatment;
   const formattedDate = moment(selectDate).format("MMMM Do, YYYY");
   const { user } = useAuth();
@@ -17,6 +17,7 @@ const BookingModal = ({ treatment, setTreatment, selectDate, refetch }) => {
     const phone = form.phone.value;
 
     const booking = {
+      bookingId: _id,
       appointmentDate: formattedDate,
       treatment: treatmentName,
       patient: name,

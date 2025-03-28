@@ -82,6 +82,7 @@ const AvailableServices = ({ selectDate }) => {
           treatment={treatment}
           setTreatment={setTreatment}
           refetch={refetch}
+          _id={treatment?._id}
         />
       )}
     </div>
