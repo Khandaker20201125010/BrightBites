@@ -11,6 +11,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { LiaTimesSolid } from "react-icons/lia";
 import useAuth from "../Hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import { FaRegCalendarPlus } from "react-icons/fa";
+import useBookings from "../Hooks/useBookings";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -23,6 +25,7 @@ const Navbar = () => {
   const [lanColor, setLanColor] = useState("bg-transparent"); // Button color
   const [logoVisible, setLogoVisible] = useState(logo);
   const [click, setClick] = useState(false);
+  const [bookings] = useBookings();
 
   const handelLogOut = () => {
     logOut().then(() => {
@@ -78,10 +81,9 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            `font-bold px-4 py-2 rounded-md ${isActive
+              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+              : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
             }`
           }
         >
@@ -93,10 +95,9 @@ const Navbar = () => {
         <NavLink
           to="/appointment"
           className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            `font-bold px-4 py-2 rounded-md ${isActive
+              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+              : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
             }`
           }
         >
@@ -108,10 +109,9 @@ const Navbar = () => {
         <NavLink
           to="/contact"
           className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            `font-bold px-4 py-2 rounded-md ${isActive
+              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+              : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
             }`
           }
         >
@@ -122,26 +122,36 @@ const Navbar = () => {
         <NavLink
           to="/about"
           className={({ isActive }) =>
-            `font-bold px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+            `font-bold px-4 py-2 rounded-md ${isActive
+              ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+              : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
             }`
           }
         >
           About
         </NavLink>
       </li>
+        <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `font-bold px-4 py-2 rounded-md ${isActive
+                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+              }`
+            }
+          >
+            About
+          </NavLink>
+        </li>
     </>
   );
 
   return (
     <div
-      className={`${
-        lastScrollY === 0 ? "relative" : "fixed"
-      } top-0 left-0 right-0 mx-auto navbar max-w-[90rem] ${navColor} z-50 transition-all duration-300 ${
-        navbarVisible ? "transform-none" : "-translate-y-full"
-      }`}
+      className={`${lastScrollY === 0 ? "relative" : "fixed"
+        } top-0 left-0 right-0 mx-auto navbar max-w-[90rem] ${navColor} z-50 transition-all duration-300 ${navbarVisible ? "transform-none" : "-translate-y-full"
+        }`}
     >
       <Toaster
         position="top-right"></Toaster>
@@ -158,20 +168,31 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
+        <Link to='dashboard/MyAppointment'>
+          <div tabIndex={0} role="button" className="mx-4 border-b-2 border-cyan-500 btn btn-ghost hover:bg-cyan-400 btn-circle">
+            <div className="indicator">
+              <FaRegCalendarPlus className="text-2xl mx-1" />
+              <span className="badge badge-sm indicator-item   border-cyan-500">{bookings?.length}</span>
+            </div>
+          </div>
+        </Link>
+
       </div>
+
       <div className="hidden lg:block xl:block navbar-end">
-       {user? (<div onClick={handelLogOut}
+
+        {user ? (<div onClick={handelLogOut}
           className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
         >
           {"LogOut"} <MdOutlineKeyboardArrowRight />
-        </div>):
-      (  <Link to="/login">
-          <div
-            className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
-          >
-            {"Login"} <MdOutlineKeyboardArrowRight />
-          </div>
-        </Link>)}
+        </div>) :
+          (<Link to="/login">
+            <div
+              className={` btn btn-xs  lg:btn-md xl:btn-lg btn-outline ${buttonColor} border-blue-900 hover:text-blue-500 mx-20`}
+            >
+              {"Login"} <MdOutlineKeyboardArrowRight />
+            </div>
+          </Link>)}
       </div>
       <div className="">
         <div className="navbar relative lg:hidden">
@@ -196,12 +217,11 @@ const Navbar = () => {
             </div>
 
             <div
-              className={`fixed top-20 left-0 w-full h-full bg-base-200 shadow-lg transition-transform duration-500 ease-in-out z-[10000] border-r-2 border-blue-500 ${
-                click ? "translate-x-0" : "-translate-x-full"
-              }`}
+              className={`fixed top-20 left-0 w-full h-full bg-base-200 shadow-lg transition-transform duration-500 ease-in-out z-[10000] border-r-2 border-blue-500 ${click ? "translate-x-0" : "-translate-x-full"
+                }`}
             >
               <ul
-                className="bg-blue-500 p-4 space-y-6 text-2xl min-h-screen overflow-y-auto flex flex-col items-center"
+                className="bg-blue-500 p-4 space-y-6 text-2xl min-h-screen overflow-y-auto flex flex-col items-start"
                 style={{
                   maxHeight: "calc(100vh - 64px)",
                   scrollbarWidth: "none", // Hide scrollbar for Firefox
@@ -211,6 +231,7 @@ const Navbar = () => {
                 <style> {`ul::-webkit-scrollbar {display: none;}`} </style>
 
                 {links}
+             
 
                 <div className="flex justify-center w-full pb-10">
                   {user ? (

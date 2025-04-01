@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import useAuth from "../Hooks/useAuth";
 
 const ContactUs = () => {
     const [reviews, setReviews] = useState([]);
     const [formData, setFormData] = useState({ name: "", review: "", rating: 0 });
+    const { user } = useAuth();
 
     useEffect(() => {
         axios.get("http://localhost:5000/reviews")
@@ -25,17 +27,23 @@ const ContactUs = () => {
             alert("Please fill all fields and select a rating.");
             return;
         }
-
+    
+        const reviewData = {
+            ...formData,
+            email: user?.email, // Add the user's email (or user ID) to the review data
+        };
+    
         try {
-            const response = await axios.post("http://localhost:5000/reviews", formData);
+            const response = await axios.post("http://localhost:5000/reviews", reviewData);
             if (response.data.success) {
-                setReviews([...reviews, formData]);
+                setReviews([...reviews, reviewData]); // Make sure to include the email in the added review
                 setFormData({ name: "", review: "", rating: 0 });
             }
         } catch (error) {
             console.error("Error submitting review:", error);
         }
     };
+    
 
     return (
         <div className=" mx-auto px-6 py-10">
