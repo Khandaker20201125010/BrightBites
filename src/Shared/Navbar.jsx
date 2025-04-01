@@ -131,19 +131,6 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
-        <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `font-bold px-4 py-2 rounded-md ${isActive
-                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
-                : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
-              }`
-            }
-          >
-            About
-          </NavLink>
-        </li>
     </>
   );
 

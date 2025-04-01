@@ -30,7 +30,8 @@ const ContactUs = () => {
     
         const reviewData = {
             ...formData,
-            email: user?.email, // Add the user's email (or user ID) to the review data
+            email: user?.email,
+            photo: user?.photo // Add the user's email (or user ID) to the review data
         };
     
         try {
