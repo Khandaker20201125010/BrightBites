@@ -4,7 +4,7 @@ import useAppointment from '../../../Hooks/useAppointment';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 
-const CheckoutForm = ({ booked }) => {
+const CheckoutForm = ({ booked, onPaymentSuccess }) => {
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();
@@ -27,60 +27,68 @@ const CheckoutForm = ({ booked }) => {
                 .then(data => setClientSecret(data.clientSecret));
         }
     }, [booked]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         if (!stripe || !elements || !clientSecret) {
             console.error("Stripe.js is not ready or clientSecret is missing.");
             return;
         }
-    
+
         setProcessing(true);
         setCardError('');
         setSuccess('');
-    
+
         const card = elements.getElement(CardNumberElement);
         if (!card) return;
-    
+
         const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { 
-                card: card, 
-                billing_details: { 
-                    name: user.displayName, 
-                    email: user.email 
-                } 
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: user.displayName,
+                    email: user.email
+                }
             },
         });
-    
+
         if (error) {
             setCardError(error.message);
             setProcessing(false);
-        } else {
+        } else if (paymentIntent.status === "succeeded") {
             setSuccess('Payment successful!');
             setTransactionId(paymentIntent.id);
             setProcessing(false);
-    
+
             // Send payment details to backend
             const payment = {
                 email: user.email,
                 price: booked.price,
                 date: new Date(),
-                bookingIds: [booked.bookingId] ,  
-                status: "pending", 
+                bookingIds: [booked._id], // Ensure booking ID is sent
+                status: "Paid",
+                transactionId: paymentIntent.id
             };
-    
+
             axiosSecure.post('/payments', payment)
-            .then(res => {
-                console.log("Payment saved:", res.data);
-            })
-            .catch(error => {
-                console.error("Error saving payment:", error);
-            });
+                .then(res => {
+                    if (res.data.success) {
+                        console.log("Payment successful and booking deleted.");
+                        onPaymentSuccess(); // Close modal and refetch bookings
+                    } else {
+                        console.error("Payment processed but booking deletion failed.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error saving payment:", error);
+                });
+        } else {
+            console.log("Unexpected payment status:", paymentIntent.status);
+            setProcessing(false);
         }
     };
-    
-    
-    
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -97,13 +105,9 @@ const CheckoutForm = ({ booked }) => {
                                     backgroundColor: 'white',
                                     padding: '12px',
                                     borderRadius: '6px',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
-                                    },
+                                    '::placeholder': { color: '#aab7c4' },
                                 },
-                                invalid: {
-                                    color: '#9e2146',
-                                },
+                                invalid: { color: '#9e2146' },
                             },
                         }}
                     />
@@ -123,20 +127,16 @@ const CheckoutForm = ({ booked }) => {
                                     backgroundColor: 'white',
                                     padding: '12px',
                                     borderRadius: '6px',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
-                                    },
+                                    '::placeholder': { color: '#aab7c4' },
                                 },
-                                invalid: {
-                                    color: '#9e2146',
-                                },
+                                invalid: { color: '#9e2146' },
                             },
                         }}
                     />
                 </div>
             </div>
 
-            {/* Expiration Date (CardExpiryElement) */}
+            {/* Expiration Date Input */}
             <div>
                 <label className="block text-gray-600 mb-1 font-semibold">Expiration Date</label>
                 <div className="border border-gray-300 p-3 rounded-lg">
@@ -149,26 +149,21 @@ const CheckoutForm = ({ booked }) => {
                                     backgroundColor: 'white',
                                     padding: '12px',
                                     borderRadius: '6px',
-                                    '::placeholder': {
-                                        color: '#aab7c4',
-                                    },
+                                    '::placeholder': { color: '#aab7c4' },
                                 },
-                                invalid: {
-                                    color: '#9e2146',
-                                },
+                                invalid: { color: '#9e2146' },
                             },
                         }}
                     />
                 </div>
             </div>
 
-
-
             {/* Pay Button */}
             <button
                 className="btn btn-sm mt-4 hover:bg-cyan-500 w-full"
                 type="submit"
-                disabled={!stripe || !clientSecret || processing}>
+                disabled={!stripe || !clientSecret || processing}
+            >
                 Pay {booked.price && ` ${booked.price}`}$
             </button>
 

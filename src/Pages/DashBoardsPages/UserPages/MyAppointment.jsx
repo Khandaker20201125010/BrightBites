@@ -4,7 +4,6 @@ import useAuth from '../../../Hooks/useAuth';
 import Payment from '../Payment/Payment';
 import Modal from '../../../Componenets/Modal/Modal';
 
-
 const MyAppointment = () => {
     const { user } = useAuth();
     const [bookings, refetch, isLoading] = useBookings();
@@ -14,6 +13,14 @@ const MyAppointment = () => {
     if (isLoading) {
         return <p className="text-center text-xl">Loading...</p>;
     }
+
+    // This function will be called when payment is successful
+    const handlePaymentSuccess = () => {
+        // Close the modal
+        setIsModalOpen(false);
+        // Refetch bookings so that paid ones no longer appear
+        refetch();
+    };
 
     return (
         <div>
@@ -32,30 +39,32 @@ const MyAppointment = () => {
                     </thead>
                     <tbody>
                         {bookings &&
-                            bookings.map((booking, i) => (
-                                <tr key={booking._id}>
-                                    <th>{i + 1}</th>
-                                    <td>{booking.patient}</td>
-                                    <td>{booking.treatment}</td>
-                                    <td>{booking.appointmentDate}</td>
-                                    <td>{booking.slot}</td>
-                                    <td>
-                                        {booking.price && !booking.paid ? (
-                                            <button
-                                                className="btn btn-primary btn-sm"
-                                                onClick={() => {
-                                                    setSelectedBooking(booking);
-                                                    setIsModalOpen(true);
-                                                }}
-                                            >
-                                                Pay
-                                            </button>
-                                        ) : (
-                                            <span className="text-green-500">Paid</span>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
+                            bookings
+                                .filter(booking => booking.price && (!booking.paid || booking.paid === false))
+                                .map((booking, i) => (
+                                    <tr key={booking._id}>
+                                        <th>{i + 1}</th>
+                                        <td>{booking.patient}</td>
+                                        <td>{booking.treatment}</td>
+                                        <td>{booking.appointmentDate}</td>
+                                        <td>{booking.slot}</td>
+                                        <td>
+                                            {!booking.paid ? (
+                                                <button
+                                                    className="btn btn-primary btn-sm"
+                                                    onClick={() => {
+                                                        setSelectedBooking(booking);
+                                                        setIsModalOpen(true);
+                                                    }}
+                                                >
+                                                    Pay
+                                                </button>
+                                            ) : (
+                                                <span className="text-green-500">Paid</span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
                     </tbody>
                 </table>
             </div>
@@ -63,7 +72,10 @@ const MyAppointment = () => {
             {/* Payment Modal */}
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    {selectedBooking && <Payment booked={selectedBooking} />}
+                    {selectedBooking && (
+                        // Pass the onPaymentSuccess callback as a prop
+                        <Payment booked={selectedBooking} onPaymentSuccess={handlePaymentSuccess} />
+                    )}
                 </Modal>
             )}
         </div>

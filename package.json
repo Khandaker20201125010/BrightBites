@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.1.2",
+    "@reach/visually-hidden": "^0.18.0",
     "@stripe/react-stripe-js": "^3.5.1",
     "@stripe/stripe-js": "^6.1.0",
     "@tailwindcss/vite": "^4.0.1",
