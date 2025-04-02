@@ -13,6 +13,7 @@ import useAuth from "../Hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegCalendarPlus } from "react-icons/fa";
 import useBookings from "../Hooks/useBookings";
+import useAdmin from "../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -26,6 +27,7 @@ const Navbar = () => {
   const [logoVisible, setLogoVisible] = useState(logo);
   const [click, setClick] = useState(false);
   const [bookings] = useBookings();
+  const [isAdmin] = useAdmin();
 
   const handelLogOut = () => {
     logOut().then(() => {
@@ -131,6 +133,7 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
+
     </>
   );
 
@@ -155,16 +158,43 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="flex gap-5 menu-horizontal px-1">{links}</ul>
-        <Link to='dashboard/MyAppointment'>
-          <div tabIndex={0} role="button" className="mx-4 border-b-2 border-cyan-500 btn btn-ghost hover:bg-cyan-400 btn-circle">
-            <div className="indicator">
-              <FaRegCalendarPlus className="text-2xl mx-1" />
-              <span className="badge badge-sm indicator-item   border-cyan-500">{bookings?.length}</span>
-            </div>
-          </div>
-        </Link>
 
+        {/* Normal Users: Show Appointment Icon */}
+        {!isAdmin && (
+          <Link to="dashboard/MyAppointment">
+            <div
+              tabIndex={0}
+              role="button"
+              className="mx-4 border-b-2 border-cyan-500 btn btn-ghost hover:bg-cyan-400 btn-circle"
+            >
+              <div className="indicator">
+                <FaRegCalendarPlus className="text-2xl mx-1" />
+                <span className="badge badge-sm indicator-item border-cyan-500">
+                  {bookings?.length}
+                </span>
+              </div>
+            </div>
+          </Link>
+        )}
+
+        {/* Only Admins: Show Dashboard */}
+        {isAdmin && (
+          <div className="w-full whitespace-nowrap lg:py-3 transition-all duration-500 cursor-pointer">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `font-bold px-4 py-2 rounded-md ${isActive
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                  : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </div>
+        )}
       </div>
+
 
       <div className="hidden lg:block xl:block navbar-end">
 
@@ -218,7 +248,33 @@ const Navbar = () => {
                 <style> {`ul::-webkit-scrollbar {display: none;}`} </style>
 
                 {links}
-             
+                {!isAdmin && <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
+                  <NavLink
+                    to="/dashboard/MyAppointment"
+                    className={({ isActive }) =>
+                      `font-bold px-4 py-2 rounded-md ${isActive
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                        : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+                      }`
+                    }
+                  >
+                    DashBoard
+                  </NavLink>
+                </li>}
+                {isAdmin && <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      `font-bold px-4 py-2 rounded-md ${isActive
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
+                        : "bg-transparent text-black border-b border-transparent hover:border-blue-900 hover:border-opacity-100 transition-all duration-500 cursor-pointer"
+                      }`
+                    }
+                  >
+                    DashBoard
+                  </NavLink>
+                </li>}
+
 
                 <div className="flex justify-center w-full pb-10">
                   {user ? (
