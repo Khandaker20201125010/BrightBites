@@ -26,7 +26,7 @@ const Navbar = () => {
   const [lanColor, setLanColor] = useState("bg-transparent"); // Button color
   const [logoVisible, setLogoVisible] = useState(logo);
   const [click, setClick] = useState(false);
-  const [bookings] = useBookings();
+  const [bookings, refetch] = useBookings();
   const [isAdmin] = useAdmin();
 
   const handelLogOut = () => {
@@ -181,7 +181,7 @@ const Navbar = () => {
         {isAdmin && (
           <div className="w-full whitespace-nowrap lg:py-3 transition-all duration-500 cursor-pointer">
             <NavLink
-              to="/dashboard"
+              to="/dashboard/adminProfile"
               className={({ isActive }) =>
                 `font-bold px-4 py-2 rounded-md ${isActive
                   ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
@@ -263,7 +263,7 @@ const Navbar = () => {
                 </li>}
                 {isAdmin && <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
                   <NavLink
-                    to="/dashboard"
+                    to="/dashboard/adminProfile"
                     className={({ isActive }) =>
                       `font-bold px-4 py-2 rounded-md ${isActive
                         ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"

@@ -18,6 +18,8 @@ import AddDoctor from "../Pages/DashBoardsPages/AdminPages/AddDoctor";
 import DisplayError from "../Shared/DisplayError/DisplayError";
 import AddAppointment from "../Pages/DashBoardsPages/AdminPages/AddAppointment";
 import Payment from "../Pages/DashBoardsPages/Payment/Payment";
+import AdminPrivetRoutes from "../PrivetRoutes/AdminPrivetRoutes";
+import AdminProfile from "../Pages/DashBoardsPages/AdminPages/AdminProfile";
 
 export const router = createBrowserRouter([
 {
@@ -62,11 +64,11 @@ export const router = createBrowserRouter([
         },
         {
             path: 'MyReviews',
-            element:<MyReviews></MyReviews>
+            element:<PriveteRoute><MyReviews></MyReviews></PriveteRoute>
         },
         {
             path: 'MyHistory',
-            element:<MyHistory></MyHistory>
+            element:<PriveteRoute><MyHistory></MyHistory></PriveteRoute>
         },
         {
             path: '/dashboard/payment/:id',
@@ -74,19 +76,24 @@ export const router = createBrowserRouter([
         },
         //Admin routes
         {
+            path: 'adminProfile',
+            element:<AdminPrivetRoutes><AdminProfile></AdminProfile></AdminPrivetRoutes>
+        },
+        {
             path: 'allUsers',
-            element:<AllUsers></AllUsers>
-        }, {
+            element:<AdminPrivetRoutes><AllUsers></AllUsers></AdminPrivetRoutes>
+        },
+         {
             path: 'addDoctor',
-            element:<AddDoctor></AddDoctor>
+            element:<AdminPrivetRoutes><AddDoctor></AddDoctor></AdminPrivetRoutes>
         },
          {
             path: 'manageDoctors',
-            element:<ManageDoctor></ManageDoctor>
+            element:<AdminPrivetRoutes><ManageDoctor></ManageDoctor></AdminPrivetRoutes>
         },
          {
             path: 'addAppointment',
-            element:<AddAppointment></AddAppointment>
+            element:<AdminPrivetRoutes><AddAppointment></AddAppointment></AdminPrivetRoutes>
         },
     ]
 }

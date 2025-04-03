@@ -33,13 +33,13 @@ const AddAppointment = () => {
   } = useForm();
   const [selectedSlots, setSelectedSlots] = useState([]);
 
-  // Handle checkbox selection
+  // Handle checkbox selection with controlled checkboxes
   const handleSlotChange = (event) => {
     const { value, checked } = event.target;
     if (checked) {
-      setSelectedSlots([...selectedSlots, value]);
+      setSelectedSlots((prev) => [...prev, value]);
     } else {
-      setSelectedSlots(selectedSlots.filter((slot) => slot !== value));
+      setSelectedSlots((prev) => prev.filter((slot) => slot !== value));
     }
   };
 
@@ -54,7 +54,7 @@ const AddAppointment = () => {
 
     try {
       const appointmentInfo = {
-        name: data.name,
+        appointment: data.appointment,
         price: data.price,
         slots: selectedSlots, // Only selected slots will be sent
       };
@@ -71,7 +71,7 @@ const AddAppointment = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.name} appointment slots added successfully`,
+          title: `${data.appointment} appointment slots added successfully`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -97,7 +97,7 @@ const AddAppointment = () => {
           <div>
             <label className="block text-gray-700 mb-1">Name</label>
             <select
-              {...register("name", { required: "Please select a name" })}
+              {...register("appointment", { required: "Please select a name" })}
               className="w-full p-2 border rounded-lg"
             >
               <option value="Teeth Orthodontics">Teeth Orthodontics</option>
@@ -107,8 +107,8 @@ const AddAppointment = () => {
               <option value="Cavity Protection">Cavity Protection</option>
               <option value="Pediatric Dental">Pediatric Dental</option>
             </select>
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.appointment && (
+              <p className="text-red-500 text-sm">{errors.appointment.message}</p>
             )}
           </div>
           <div>
@@ -119,8 +119,8 @@ const AddAppointment = () => {
               className="w-full p-2 border rounded-lg"
               placeholder="Enter Price"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            {errors.price && (
+              <p className="text-red-500 text-sm">{errors.price.message}</p>
             )}
           </div>
 
@@ -135,6 +135,7 @@ const AddAppointment = () => {
                   <input
                     type="checkbox"
                     value={slot}
+                    checked={selectedSlots.includes(slot)}
                     onChange={handleSlotChange}
                     className="w-5 h-5 checkbox checkbox-primary"
                   />

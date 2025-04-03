@@ -1,9 +1,11 @@
 import React from 'react';
 import useAuth from '../Hooks/useAuth';
 import useAdmin from '../Hooks/useAdmin';
+import Swal from 'sweetalert2';
+import { Navigate } from 'react-router-dom';
 
 const AdminPrivetRoutes = ( {children}) => {
-    const [user , loading] = useAuth();
+    const {user , loading} = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin();
   if (loading || isAdminLoading) {
     return (

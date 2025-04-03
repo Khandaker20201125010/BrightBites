@@ -3,8 +3,8 @@ import useAuth from "../../../Hooks/useAuth";
 import moment from "moment";
 import Swal from "sweetalert2";
 
-const BookingModal = ({ treatment, setTreatment, selectDate, refetch, _id }) => {
-  const { name: treatmentName, slots, price } = treatment;
+const BookingModal = ({ doctors, treatment, setTreatment, selectDate, refetch }) => {
+  const { appointment: treatmentName, slots, price } = treatment;
   const formattedDate = moment(selectDate).format("MMMM Do, YYYY");
   const { user } = useAuth();
 
@@ -12,14 +12,15 @@ const BookingModal = ({ treatment, setTreatment, selectDate, refetch, _id }) => 
     event.preventDefault();
     const form = event.target;
     const slot = form.slot.value;
+    const doctorName = form.doctor.value; // Get the selected doctor's name
     const name = form.name.value;
     const email = form.email.value;
     const phone = form.phone.value;
 
     const booking = {
-      bookingId: _id,
       appointmentDate: formattedDate,
       treatment: treatmentName,
+      doctor: doctorName, // Send doctor name to backend
       patient: name,
       slot,
       email,
@@ -39,7 +40,7 @@ const BookingModal = ({ treatment, setTreatment, selectDate, refetch, _id }) => 
 
       if (data.acknowledged) {
         setTreatment(null);
-        refetch(); 
+        refetch();
         Swal.fire({
           title: "Success!",
           text: "Your booking has been confirmed.",
@@ -73,15 +74,34 @@ const BookingModal = ({ treatment, setTreatment, selectDate, refetch, _id }) => 
           <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
             ✕
           </label>
-          <h3 className="text-lg font-bold">{treatmentName}</h3>
+
           <form onSubmit={handleBooking} className="grid grid-cols-1 gap-3 mt-10">
+            <h3 className="text-lg font-bold">{treatmentName}</h3>
+
+            {/* Doctor Selection Dropdown */}
+            <h3 className="text-lg">Select a Doctor:</h3>
+            <select name="doctor" className="select select-bordered w-full" required>
+              {doctors.length > 0 ? (
+                doctors.map((doctor) => (
+                  <option key={doctor._id} value={doctor.name}>
+                    {doctor.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No doctors available</option>
+              )}
+            </select>
+
             <input type="text" disabled value={formattedDate} className="input w-full input-bordered" />
+
             <select name="slot" className="select select-bordered w-full">
               {slots.length > 0 ? slots.map((slot, i) => <option value={slot} key={i}>{slot}</option>) : <option disabled>No slots available</option>}
             </select>
+
             <input name="name" type="text" defaultValue={user?.displayName} disabled className="input w-full input-bordered" />
             <input name="email" type="email" defaultValue={user?.email} disabled className="input w-full input-bordered" />
             <input name="phone" type="text" placeholder="Phone Number" className="input w-full input-bordered" required />
+
             <br />
             <input className="btn btn-accent w-full" type="submit" value="Submit" />
           </form>

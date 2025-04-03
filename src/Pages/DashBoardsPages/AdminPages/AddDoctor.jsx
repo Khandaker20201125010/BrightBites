@@ -179,9 +179,8 @@ const AddDoctor = () => {
           </div>
           {errors.image && (
             <p className="text-red-500 text-sm">{errors.image.message}</p>
-          )}{" "}
-          {/* ✅ Show error message */}
-          {/* Submit Button */}
+          )}
+       
           <button
             type="submit"
             className="btn w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:brightness-105 text-white p-2 rounded-lg font-bold"

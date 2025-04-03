@@ -3,6 +3,7 @@ import { CardNumberElement, CardCvcElement, CardExpiryElement, useStripe, useEle
 import useAppointment from '../../../Hooks/useAppointment';
 import useAuth from '../../../Hooks/useAuth';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import useDoctor from '../../../Hooks/useDoctor';
 
 const CheckoutForm = ({ booked, onPaymentSuccess }) => {
     const { user } = useAuth();
@@ -15,6 +16,7 @@ const CheckoutForm = ({ booked, onPaymentSuccess }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [appointments] = useAppointment();
     const axiosSecure = useAxiosSecure();
+    const [doctors] = useDoctor();
 
     useEffect(() => {
         if (booked?.price) {
@@ -66,9 +68,11 @@ const CheckoutForm = ({ booked, onPaymentSuccess }) => {
                 email: user.email,
                 price: booked.price,
                 date: new Date(),
-                bookingIds: [booked._id], // Ensure booking ID is sent
+                bookingIds: [booked._id],
                 status: "Paid",
-                transactionId: paymentIntent.id
+                transactionId: paymentIntent.id,
+                treatment: booked?.treatment || "Unknown", // Avoids errors if missing
+                doctor: booked?.doctor || "Not Assigned",
             };
 
             axiosSecure.post('/payments', payment)

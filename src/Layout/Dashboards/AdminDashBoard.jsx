@@ -5,6 +5,7 @@ const AdminDashBoard = () => {
     return (
         <ul className="space-y-3">
           {[
+            { path: "/dashboard/adminProfile", label: "Admin Profile" },
             { path: "/dashboard/allUsers", label: "All Users" },
             { path: "/dashboard/addDoctor", label: "Add a Doctor" },
             { path: "/dashboard/manageDoctors", label: "Manage Doctors" },

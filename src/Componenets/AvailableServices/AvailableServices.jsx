@@ -3,11 +3,20 @@ import { useState } from "react";
 import AppointmentOption from "./AppointmentOption";
 import { useQuery } from "@tanstack/react-query";
 import BookingModal from "../Modal/BookingModal/BookingModal";
+import useDoctor from "../../Hooks/useDoctor";
 
 
 const AvailableServices = ({ selectDate }) => {
   const [treatment, setTreatment] = useState(null);
   const formattedDate = moment(selectDate).format("MMMM Do, YYYY");
+  const [doctors] = useDoctor();
+
+  const filteredDoctors = doctors.filter(
+    (doctor) =>
+      doctor.specialty.replace(/\s/g, "").toLowerCase() ===
+      treatment?.appointment.replace(/\s/g, "").toLowerCase()
+  );
+
   const {
     data: appointments = [],
     refetch,
@@ -78,7 +87,9 @@ const AvailableServices = ({ selectDate }) => {
       </div>
       {treatment && (
         <BookingModal
+          doctors={filteredDoctors}
           selectDate={selectDate}
+          appointmentOption={treatment}
           treatment={treatment}
           setTreatment={setTreatment}
           refetch={refetch}
