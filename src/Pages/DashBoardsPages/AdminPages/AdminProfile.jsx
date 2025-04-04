@@ -19,7 +19,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/dashboard-stats");
+                const res = await axios.get("https://bright-bites-server.vercel.app/dashboard-stats");
                 setStats(res.data);
             } catch (error) {
                 console.error("Error fetching dashboard stats", error);
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchRevenueData = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/revenue-per-treatment");
+                const response = await axios.get("https://bright-bites-server.vercel.app/revenue-per-treatment");
                 console.log("Revenue Data:", response.data); // Debugging
                 if (Array.isArray(response.data)) {
                     setRevenueData(response.data);
@@ -51,11 +51,11 @@ const AdminDashboard = () => {
             <div className="flex justify-between">
                 <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
                 <Avatar
-                        name={users[0]?.name || "Admin"} // Default name if no user name is found
-                        src={users[0]?.photo} // Photo URL from the user data
-                        size="40" // Size of the avatar
-                        round={true} // Make the avatar round
-                    />
+                    name={users[0]?.name || "Admin"} // Default name if no user name is found
+                    src={users[0]?.photo} // Photo URL from the user data
+                    size="40" // Size of the avatar
+                    round={true} // Make the avatar round
+                />
             </div>
 
             {/* Stats Section */}
@@ -91,11 +91,11 @@ const AdminDashboard = () => {
             </div>
 
             {/* Revenue Chart Section */}
-            <div className="bg-gray-100 p-4 rounded-lg mt-6">
-                <h3 className="text-lg font-bold text-gray-800">Revenue per Treatment</h3>
+            <div className="bg-gray-100 lg:p-4 rounded-lg mt-6 ">
+                <h3 className="text-lg max-sm:text-sm font-bold text-gray-800 p-2 max-sm:text-center">Revenue per Treatment</h3>
 
                 {revenueData.length > 0 ? (
-                    <ResponsiveContainer width="100%" height={300}>
+                    <ResponsiveContainer width="100%" height={500} className="lg:h-800 sm:h-200 w-full -mx-4">
                         <BarChart data={revenueData}>
                             <XAxis dataKey="treatment" stroke="#555" />
                             <YAxis stroke="#555" />

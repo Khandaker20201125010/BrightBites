@@ -8,9 +8,9 @@ const ContactUs = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        axios.get("http://localhost:5000/reviews")
+        axios.get("https://bright-bites-server.vercel.app/reviews")
             .then((res) => setReviews(res.data))
-            .catch((err) => console.error("Error fetching reviews:", err));
+
     }, []);
 
     const handleChange = (e) => {
@@ -35,7 +35,7 @@ const ContactUs = () => {
         };
     
         try {
-            const response = await axios.post("http://localhost:5000/reviews", reviewData);
+            const response = await axios.post("https://bright-bites-server.vercel.app/reviews", reviewData);
             if (response.data.success) {
                 setReviews([...reviews, reviewData]); // Make sure to include the email in the added review
                 setFormData({ name: "", review: "", rating: 0 });

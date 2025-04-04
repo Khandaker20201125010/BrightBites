@@ -20,7 +20,7 @@ const CheckoutForm = ({ booked, onPaymentSuccess }) => {
 
     useEffect(() => {
         if (booked?.price) {
-            fetch("http://localhost:5000/create-payment-intent", {
+            fetch("https://bright-bites-server.vercel.app/create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price: booked.price }),

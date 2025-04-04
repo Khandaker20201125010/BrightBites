@@ -29,14 +29,14 @@ const BookingModal = ({ doctors, treatment, setTreatment, selectDate, refetch })
     };
 
     try {
-      const res = await fetch("http://localhost:5000/bookings", {
+      const res = await fetch("https://bright-bites-server.vercel.app/bookings", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(booking),
       });
 
       const data = await res.json();
-      console.log("Response from server:", data);
+    
 
       if (data.acknowledged) {
         setTreatment(null);
@@ -56,7 +56,7 @@ const BookingModal = ({ doctors, treatment, setTreatment, selectDate, refetch })
         });
       }
     } catch (error) {
-      console.error("Booking request failed:", error);
+  
       Swal.fire({
         title: "Error!",
         text: "Something went wrong. Please try again!",

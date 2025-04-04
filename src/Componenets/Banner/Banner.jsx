@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import banner from "../../assets/images/banner.jpg";
 import landBg from "../../assets/images/landing-bg.png";
 
@@ -17,9 +18,11 @@ const Banner = () => {
                     <p className="text-base sm:text-lg text-blue-950 mt-4">
                         Wake up happy and let the positivity flow throughout your day.
                     </p>
-                    <button className="btn mt-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-3 text-lg rounded-lg">
+                 <Link to='/appointment'>
+                 <button className="btn mt-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-3 text-lg rounded-lg">
                         Get Started
                     </button>
+                 </Link>
                 </div>
 
                 {/* Right Image */}

@@ -25,7 +25,7 @@ const AvailableServices = ({ selectDate }) => {
     queryKey: ["appointments", formattedDate],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/appointments?date=${formattedDate}`
+        `https://bright-bites-server.vercel.app/appointments?date=${formattedDate}`
       );
       const data = await res.json();
       return data;

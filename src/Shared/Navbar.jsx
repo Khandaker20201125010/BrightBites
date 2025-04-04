@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import logo from "../assets/images/logo.png";
 import logo1 from "../assets/images/logo1.png";
@@ -28,7 +28,7 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
   const [bookings, refetch] = useBookings();
   const [isAdmin] = useAdmin();
-
+  const location = useLocation();
   const handelLogOut = () => {
     logOut().then(() => {
       toast.success("Logout Successful!");
@@ -38,7 +38,9 @@ const Navbar = () => {
   const closeMenu = () => {
     setClick(false);
   };
-
+  useEffect(() => {
+    setClick(false); // Auto-close menu when route changes
+  }, [location]);
   // Track scroll direction and apply styles dynamically
 
   const handleScroll = () => {
@@ -82,6 +84,7 @@ const Navbar = () => {
       <li className="group relative w-full whitespace-nowrap lg:py-3 lg:px-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/"
+          onClick={closeMenu}
           className={({ isActive }) =>
             `font-bold px-4 py-2 rounded-md ${isActive
               ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
@@ -95,6 +98,7 @@ const Navbar = () => {
 
       <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
+          onClick={closeMenu}
           to="/appointment"
           className={({ isActive }) =>
             `font-bold px-4 py-2 rounded-md ${isActive
@@ -110,6 +114,7 @@ const Navbar = () => {
       <li className="w-full whitespace-nowrap lg:py-3 transition-all duration-500 cursor-pointer">
         <NavLink
           to="/contact"
+          onClick={closeMenu}
           className={({ isActive }) =>
             `font-bold px-4 py-2 rounded-md ${isActive
               ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:brightness-90"
@@ -122,6 +127,7 @@ const Navbar = () => {
       </li>
       <li className="w-full whitespace-nowrap lg:py-3  transition-all duration-500 cursor-pointer">
         <NavLink
+          onClick={closeMenu}
           to="/about"
           className={({ isActive }) =>
             `font-bold px-4 py-2 rounded-md ${isActive
