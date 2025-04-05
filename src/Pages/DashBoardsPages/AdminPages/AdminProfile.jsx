@@ -10,6 +10,8 @@ import useAppointment from "../../../Hooks/useAppointment";
 import Avatar from "react-avatar";
 
 const AdminDashboard = () => {
+    // Place useState declarations inside the component function
+    const [userTotals, setUserTotals] = useState([]);
     const [users, isLoading, refetch] = userUsers();
     const [stats, setStats] = useState({ totalRevenue: 0, totalAppointments: 0, totalPayments: 0 });
     const [appointments] = useAppointment();
@@ -46,9 +48,27 @@ const AdminDashboard = () => {
         fetchRevenueData();
     }, []);
 
+    // Fetch User Totals
+    useEffect(() => {
+        const fetchUserTotals = async () => {
+            try {
+                const { data } = await axios.get(
+                    "https://bright-bites-server.vercel.app/user-total-purchases",
+                    { headers: { Authorization: `Bearer ${localStorage.getItem('access-token')}` } }
+                );
+                console.log("Fetched user totals:", data);  // Debugging
+                setUserTotals(data);
+            } catch (err) {
+                console.error("Error fetching user totals", err);
+            }
+        };
+        fetchUserTotals();
+    }, []);
+
+
     return (
         <div className="bg-white min-h-screen p-6">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
                 <Avatar
                     name={users[0]?.name || "Admin"} // Default name if no user name is found
@@ -59,7 +79,7 @@ const AdminDashboard = () => {
             </div>
 
             {/* Stats Section */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 <div className="bg-gray-100 p-4 rounded-lg">
                     <div className="flex justify-between">
                         <p className="text-sm text-gray-600">Total Revenue</p>
@@ -91,21 +111,60 @@ const AdminDashboard = () => {
             </div>
 
             {/* Revenue Chart Section */}
-            <div className="bg-gray-100 lg:p-4 rounded-lg mt-6 ">
-                <h3 className="text-lg max-sm:text-sm font-bold text-gray-800 p-2 max-sm:text-center">Revenue per Treatment</h3>
+            <div className="flex gap-6 flex-col lg:flex-row mt-8">
+                <div className="bg-gray-100 lg:p-4 rounded-lg lg:w-1/2">
+                    <h3 className="text-lg font-bold text-gray-800 text-center">Revenue per Treatment</h3>
+                    {revenueData.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={500} className="w-full -mx-4">
+                            <BarChart data={revenueData}>
+                                <XAxis dataKey="treatment" stroke="#555" />
+                                <YAxis stroke="#555" />
+                                <Tooltip
+                                    content={({ payload }) => {
+                                        if (payload && payload.length) {
+                                            const { treatment, totalRevenue } = payload[0].payload;
+                                            return (
+                                                <div className="bg-white p-2 border border-gray-300 rounded-lg shadow-lg">
+                                                    <p className="text-black"><strong>Treatment:</strong> {treatment}</p>
+                                                    <p><strong>Total Revenue:</strong> ${totalRevenue.toFixed(2)}</p>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    }}
+                                />
+                                <Bar dataKey="totalRevenue" fill="#4CAF50" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        <p className="text-center text-gray-600 mt-4">No revenue data available</p>
+                    )}
+                </div>
 
-                {revenueData.length > 0 ? (
-                    <ResponsiveContainer width="100%" height={500} className="lg:h-800 sm:h-200 w-full -mx-4">
-                        <BarChart data={revenueData}>
-                            <XAxis dataKey="treatment" stroke="#555" />
-                            <YAxis stroke="#555" />
-                            <Tooltip />
-                            <Bar dataKey="totalRevenue" fill="#4CAF50" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                ) : (
-                    <p className="text-center text-gray-600 mt-4">No revenue data available</p>
-                )}
+                <div className="bg-gray-100 p-6 rounded-lg lg:w-1/2 mt-6 lg:mt-0">
+                    <h3 className="text-lg font-bold">Recent Sales</h3>
+                    <p className="text-sm text-gray-400 mb-4">You made {users.length} sales this month.</p>
+                    <div className="space-y-4">
+                        {users.map(user => {
+                            const record = userTotals.find(u => u.email === user.email);
+                            const total = record ? record.totalPurchase : 0;
+                            return (
+                                <div key={user._id} className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <Avatar name={user.name} src={user.photo} size="40" round />
+                                        <div>
+                                            <p className="font-semibold">{user.name}</p>
+                                            <p className="text-gray-400 text-sm">{user.email}</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-green-400 font-bold">
+                                        +${total.toFixed(2)}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );
