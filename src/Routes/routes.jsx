@@ -64,11 +64,11 @@ export const router = createBrowserRouter([
         },
         {
             path: 'MyReviews',
-            element:<PriveteRoute><MyReviews></MyReviews></PriveteRoute>
+            element:<MyReviews></MyReviews>
         },
         {
             path: 'MyHistory',
-            element:<PriveteRoute><MyHistory></MyHistory></PriveteRoute>
+            element:<MyHistory></MyHistory>
         },
         {
             path: '/dashboard/payment/:id',

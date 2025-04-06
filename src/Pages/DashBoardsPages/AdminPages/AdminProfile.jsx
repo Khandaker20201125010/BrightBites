@@ -8,14 +8,15 @@ import userUsers from "../../../Hooks/userUsers";
 import axios from "axios";
 import useAppointment from "../../../Hooks/useAppointment";
 import Avatar from "react-avatar";
+import usePayment from "../../../Hooks/usePayment";
 
 const AdminDashboard = () => {
-    // Place useState declarations inside the component function
     const [userTotals, setUserTotals] = useState([]);
     const [users, isLoading, refetch] = userUsers();
     const [stats, setStats] = useState({ totalRevenue: 0, totalAppointments: 0, totalPayments: 0 });
     const [appointments] = useAppointment();
     const [revenueData, setRevenueData] = useState([]);
+    const [payments] = usePayment();
 
     // Fetch Dashboard Stats
     useEffect(() => {
@@ -47,16 +48,11 @@ const AdminDashboard = () => {
         };
         fetchRevenueData();
     }, []);
-
-    // Fetch User Totals
     useEffect(() => {
         const fetchUserTotals = async () => {
             try {
-                const { data } = await axios.get(
-                    "https://bright-bites-server.vercel.app/user-total-purchases",
-                    { headers: { Authorization: `Bearer ${localStorage.getItem('access-token')}` } }
-                );
-                console.log("Fetched user totals:", data);  // Debugging
+                const { data } = await axios.get("http://localhost:5000/user-total-purchases");
+                console.log("Fetched user totals:", data);
                 setUserTotals(data);
             } catch (err) {
                 console.error("Error fetching user totals", err);
@@ -71,10 +67,10 @@ const AdminDashboard = () => {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
                 <Avatar
-                    name={users[0]?.name || "Admin"} // Default name if no user name is found
-                    src={users[0]?.photo} // Photo URL from the user data
-                    size="40" // Size of the avatar
-                    round={true} // Make the avatar round
+                    name={users[0]?.name || "Admin"}
+                    src={users[0]?.photo}
+                    size="40"
+                    round={true}
                 />
             </div>
 
@@ -115,7 +111,7 @@ const AdminDashboard = () => {
                 <div className="bg-gray-100 lg:p-4 rounded-lg lg:w-1/2">
                     <h3 className="text-lg font-bold text-gray-800 text-center">Revenue per Treatment</h3>
                     {revenueData.length > 0 ? (
-                        <ResponsiveContainer width="100%" height={500} className="w-full -mx-4">
+                        <ResponsiveContainer width="100%" height={500}>
                             <BarChart data={revenueData}>
                                 <XAxis dataKey="treatment" stroke="#555" />
                                 <YAxis stroke="#555" />
@@ -141,14 +137,27 @@ const AdminDashboard = () => {
                     )}
                 </div>
 
+                {/* Recent Sales / Total Payment per User Section */}
                 <div className="bg-gray-100 p-6 rounded-lg lg:w-1/2 mt-6 lg:mt-0">
                     <h3 className="text-lg font-bold">Recent Sales</h3>
-                    <p className="text-sm text-gray-400 mb-4">You made {users.length} sales this month.</p>
-                    <div className="space-y-4">
-                        {users.map(user => {
-                            const record = userTotals.find(u => u.email === user.email);
-                            const total = record ? record.totalPurchase : 0;
-                            return (
+                    <p className="text-sm text-gray-400 mb-4">
+                        You made {users.length} sales this month.
+                    </p>
+
+                    {/* Scrollable container */}
+                    <div className="max-h-96 overflow-y-auto space-y-4">
+                        {[
+                            // Create a sorted copy of users by totalPurchase descending
+                            ...users
+                        ]
+                            .map(user => {
+                                const record = userTotals.find(
+                                    u => u.email.toLowerCase() === user.email.toLowerCase()
+                                );
+                                return { ...user, total: record ? record.totalPurchase : 0 };
+                            })
+                            .sort((a, b) => b.total - a.total)
+                            .map(user => (
                                 <div key={user._id} className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <Avatar name={user.name} src={user.photo} size="40" round />
@@ -158,13 +167,13 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
                                     <div className="text-green-400 font-bold">
-                                        +${total.toFixed(2)}
+                                        +${user.total.toFixed(2)}
                                     </div>
                                 </div>
-                            );
-                        })}
+                            ))}
                     </div>
                 </div>
+
             </div>
         </div>
     );

@@ -7,12 +7,15 @@ const MyHistory = () => {
     if (isLoading) {
         return <p className="text-center text-lg">Loading...</p>;
     }
-
+    const totalPrice = payments.reduce((sum, payment) => sum + Number(payment.price), 0);
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4">
                 My Payment History <span className="text-yellow-500">({payments.length})</span>
             </h2>
+            <p className="text-lg mb-4 font-semibold text-green-600">
+                Total Spent: ${totalPrice.toFixed(2)}
+            </p>
             <div className="overflow-x-auto rounded-md">
                 <table className="table table-zebra w-full">
                     {/* Table Header */}
