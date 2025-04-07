@@ -6,6 +6,40 @@ const ContactUs = () => {
     const [reviews, setReviews] = useState([]);
     const [formData, setFormData] = useState({ name: "", review: "", rating: 0 });
     const { user } = useAuth();
+    const [contactData, setContactData] = useState({
+        email: "",
+        subject: "",
+        message: ""
+    });
+    const handleContactChange = (e) => {
+        setContactData({
+            ...contactData,
+            [e.target.name]: e.target.value
+        });
+    };
+    const handleContactSubmit = async (e) => {
+        e.preventDefault();
+
+        const { email, subject, message } = contactData;
+
+        if (!email || !subject || !message) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            const res = await axios.post("https://bright-bites-server.vercel.app/contact", contactData);
+            if (res.data.success) {
+                alert("Message sent successfully!");
+                setContactData({ email: "", subject: "", message: "" });
+            }
+        } catch (err) {
+            console.error("Error submitting contact form:", err);
+            alert("Failed to send message.");
+        }
+    };
+
+
 
     useEffect(() => {
         axios.get("https://bright-bites-server.vercel.app/reviews")
@@ -27,13 +61,13 @@ const ContactUs = () => {
             alert("Please fill all fields and select a rating.");
             return;
         }
-    
+
         const reviewData = {
             ...formData,
             email: user?.email,
             photo: user?.photo // Add the user's email (or user ID) to the review data
         };
-    
+
         try {
             const response = await axios.post("https://bright-bites-server.vercel.app/reviews", reviewData);
             if (response.data.success) {
@@ -44,7 +78,7 @@ const ContactUs = () => {
             console.error("Error submitting review:", error);
         }
     };
-    
+
 
     return (
         <div className=" mx-auto px-6 py-10">
@@ -138,31 +172,41 @@ const ContactUs = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-cover bg-center bg-no-repeat h-auto flex flex-col items-center justify-center px-6 sm:px-12 lg:px-20 py-10 shadow-lg text-white rounded-lg">
+                    <div className="bg-cover bg-center bg-no-repeat h-auto flex flex-col items-center justify-center px-6 sm:px-12 lg:px-20 py-24 shadow-lg text-white rounded-lg">
                         <h1 className="text-cyan-400 font-bold text-3xl">Contact Us</h1>
                         <h2 className="text-3xl lg:text-4xl font-bold mt-2">Stay connected with us</h2>
 
-                        <form className=" w-full max-w-lg">
+                        <form onSubmit={handleContactSubmit} className="w-full max-w-lg">
                             <input
                                 type="email"
+                                name="email"
+                                value={contactData.email}
+                                onChange={handleContactChange}
                                 placeholder="Email Address"
                                 className="w-full p-4 rounded-md bg-base-100 text-gray-800 focus:outline-none mb-4"
                             />
                             <input
                                 type="text"
+                                name="subject"
+                                value={contactData.subject}
+                                onChange={handleContactChange}
                                 placeholder="Subject"
                                 className="w-full p-4 rounded-md bg-base-100 text-gray-800 focus:outline-none mb-4"
                             />
                             <textarea
+                                name="message"
+                                value={contactData.message}
+                                onChange={handleContactChange}
                                 placeholder="Your message"
                                 rows="4"
                                 className="w-full p-4 rounded-md bg-base-100 text-gray-800 focus:outline-none mb-4"
                             ></textarea>
 
-                            <button className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-md hover:scale-105 transition">
+                            <button type="submit" className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-md hover:scale-105 transition">
                                 Submit
                             </button>
                         </form>
+
                     </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaUser, FaUsers, FaPlusCircle, FaCalendarPlus, FaHome, FaCogs } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 const AdminDashBoard = () => {
   return (
@@ -11,6 +12,7 @@ const AdminDashBoard = () => {
         { path: "/dashboard/addDoctor", label: "Add a Doctor", icon: <FaPlusCircle /> },
         { path: "/dashboard/manageDoctors", label: "Manage Doctors", icon: <FaCogs /> },
         { path: "/dashboard/addAppointment", label: "Add Appointment", icon: <FaCalendarPlus /> },
+        { path: "/dashboard/usersEmail", label: "Users Email", icon: <MdEmail /> },
         { path: "/", label: "Home", icon: <FaHome /> },
       ].map(({ path, label, icon }) => (
         <li key={path}>

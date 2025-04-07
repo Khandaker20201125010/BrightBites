@@ -20,6 +20,7 @@ import AddAppointment from "../Pages/DashBoardsPages/AdminPages/AddAppointment";
 import Payment from "../Pages/DashBoardsPages/Payment/Payment";
 import AdminPrivetRoutes from "../PrivetRoutes/AdminPrivetRoutes";
 import AdminProfile from "../Pages/DashBoardsPages/AdminPages/AdminProfile";
+import UsersEmails from "../Pages/DashBoardsPages/AdminPages/UsersEmails";
 
 export const router = createBrowserRouter([
 {
@@ -94,6 +95,10 @@ export const router = createBrowserRouter([
          {
             path: 'addAppointment',
             element:<AdminPrivetRoutes><AddAppointment></AddAppointment></AdminPrivetRoutes>
+        },
+         {
+            path: 'usersEmail',
+            element:<AdminPrivetRoutes><UsersEmails></UsersEmails></AdminPrivetRoutes>
         },
     ]
 }
